@@ -1,0 +1,33 @@
+## Title: Beta |cFF00FFIsJusta|r WritHelper with Easy Alchemy
+## Description: Adds a panel that displays all current writs. Adds panels displaying active writ while in crafting screen.
+## APIVersion: 100032 100031 100030
+## Author: |cFF00FFIsJustaGhost|r
+## Version: 4.1.2
+## SavedVariables: IJAWH_SavedVars
+## DependsOn: LibAddonMenu-2.0
+
+Templates\Panels.xml
+
+IsJustaWritHelper.lua
+Shared.lua
+Settings.lua
+Alchemy.lua
+AlchemyTraits.lua
+EasyAlchemy.lua
+AlchemyTraitConversions.lua
+WritPanel.lua
+Enchanting.lua
+Provisioning.lua
+Smithing.lua
+Dialogues.lua
+
+lang/en.lua
+
+
+; This Add-on is not created by, affiliated with or sponsored by ZeniMax
+; Media Inc. or its affiliates. The Elder Scrolls® and related logos are
+; registered trademarks or trademarks of ZeniMax Media Inc. in the United
+; States and/or other countries. All rights reserved.
+;
+; You can read the full terms at:
+; https://account.elderscrollsonline.com/add-on-terms
