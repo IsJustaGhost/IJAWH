@@ -1,0 +1,158 @@
+
+
+smithing, fix missing for style
+    not detecting item missing
+
+fix update when item acquired
+    not updating all writs
+
+---------------------------------------------------------------------------------------------------------------------------------
+
+easy alchemy multiplying refreshes
+    keyboad saves not resetting solvent
+    not showing lib panels on enter
+    not showing lib panels for saves
+
+---------------------------------------------------------------------------------------------------------------------------------
+lib updated to work with libFilters
+easy alchemy updated to work with updated lib
+
+lib ksyboard not showing for easy alchemy
+
+---------------------------------------------------------------------------------------------------------------------------------
+
+BETA
+
+add inventory full for smithing
+
+test
+    improve smithing master
+
+    RecipeData_Object:GetDeconItemResult()
+
+
+
+function IJA_WritHelper:GetItemLinkEncodedData(itemLink)
+    local itemComboId, setId, crafted, encodedAlchemyTraits = itemLink:match('|H%d:item:(%d+:%d+:%d+:%d+:)[%d:]+(%d+):(%d+):%d+:%d+:(%d+)|h|h')
+    itemComboId = itemComboId:gsub('%:', '') .. setId
+--	return itemComboId, setId, crafted, encodedAlchemyTraits
+	return itemComboId, encodedAlchemyTraits
+end
+get style and trait or remove setId
+
+
+[SIZE="2"][COLOR="Lime"]NEW:[/COLOR][/SIZE]
+5.2
+[LIST]
+[*]added translations to support automation for de,fr,ru. -- translations still needed for settings
+[*]added support for certifications.
+[*]added settings for certifications (auto-refine, auto-decon).
+[*]added setting to auto-collapse the writ panel when all writs are completed, no longer forced.
+[*]
+[*]
+[*]
+[*]
+[*]
+[/LIST]
+
+---------------------------------------------------------------------------------------------------------------------------------
+
+5.2.0.1
+○ added translations to support automation for de,fr,ru -- translations still needed for settings
+○ added support for certifications
+○ added settings for certifications (auto-refine, auto-decon)
+○ changed the auto-open funcitons. now will not have to search inventory for each item -- seams to have stopped the "item not ready" issue
+○ chnaged how "on craft station", get next item, is processed
+
+FIXED
+○ fixed provisioning recipe lookup
+○ crafting tutorials are blocked if auto-craft
+
+
+---------------------------------------------------------------------------------------------------------------------------------
+5.2.3
+○ fixed jewelry not crafitng all items
+○ improved performance for writ pickup and turn-in
+○ improved item in bank detection
+○ 
+○ 
+○ 
+○ added internal inventory bagCaches
+
+5.2.2
+○ fixed error with gamepad keybind
+
+5.2.1
+○ fixed error with alchemy writs
+○ added setting to auto-collapse the writ panel when all writs are completed, no longer forced
+○ fixed setting for use character settings to show properly as set when true
+○ change how alchemy Result panel fragment is added
+
+5.2
+○ crafting tutorials are blocked if auto-craft
+○ fixed provisioning recipe lookup
+○ added translations to support automation for de,fr,ru -- translations still needed for settings
+○ changed the auto-open funcitons. now will not have to search inventory for each item -- seams to have stopped the "item not ready" issue
+○ chnaged how "on craft station", get next item, is processed
+○ added support for certifications
+○ added settings for certifications (auto-refine, auto-decon)
+○ added setting to auto-collapse the writ panel when all writs are completed, no longer forced
+○ fixed setting for use character settings to show properly as set when true
+○ change how alchemy Result panel fragment is added
+○ 
+○ 
+○ 
+○ 
+○ 
+
+5.1.6
+○ changed addon structure
+○ fixed bank withdraw
+○ worked on writ updates
+
+5.1.5
+○ changed writId to "craftingType .. (isMasterWrit and 1 or 0)"
+
+5.1.4
+○ added function to get updated questIndex
+
+5.1.3
+○ updated for changed gamepad alchemy crafting scene for easy alchemy
+○ fixed error caused by missing rune
+○ added functions to get link for missing rune to show in writ panel
+
+5.1.2
+○ fixed "Alchemy.lua:182: attempt to index a nil value" error on alchemy writs
+○ changed how items are compared when checking for banked items
+○ added function to smithing to update the link level
+
+5.1.1
+○ fixed alchemy error from missing recipeData by added new function to lib
+○ changed bank lookup to recipeData_object
+○ fixed writPanel not updating after withdrawing items from bank
+○ changed how smithing auto-improve data is handled
+○ fixed processing of auto-opening containers
+
+5.1
+○ several changes to writ processing
+○ individual writ conditions are now objects
+
+5.0.4
+○ fixed error associated with saved variables
+○ many events are now dynamic, only active while writs are active
+○ The writ panel is now fully dynamic no longer uses multiple templates for selecting font size
+
+5.0.3
+○ fixed invalid "cannont craft this item" smithing alert
+
+5.0.2
+○ fixed nil itemTraitType causing the following error
+user:/add_ons/is_justa_writ_helper/smithing.lua:1595: operator + is not supported for nil + number
+
+5.0.1
+○ fixed smithing tab index
+○ fixed trait information
+○ implementation of auto-improvement
+
+5
+○ initial upload
