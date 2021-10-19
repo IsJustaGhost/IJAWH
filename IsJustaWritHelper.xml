@@ -1,0 +1,143 @@
+<GuiXml>
+	<Animations>
+		<AnimationTimeline name="IJAMinMaxAnim">
+			<Animations>
+				<TranslateAnimation duration="500" anchorIndex="0">
+					<EasingFunction> return ZO_EaseOutQuadratic(progress) </EasingFunction>
+				</TranslateAnimation>
+			</Animations>
+		</AnimationTimeline>
+	</Animations>
+	<Controls>
+		<Control name="IJA_WritHelper_ToolTip" mouseEnabled="true" virtual="true">
+			<Controls>
+				<Label name="$(parent)ToolTip" wrapMode="ELLIPSIS" override="true" tier="HIGH">
+					<!--Dimensions x="230" y="25"/-->
+					<Anchor point="CENTER" relativePoint="TOPLEFT" offsetX="70" offsetY="46"/>
+				</Label>
+			</Controls>
+		</Control>
+
+		<Control name="IJA_WritHelper_WritPanelTemplate" virtual="true">
+			<OnInitialized> 
+				self.slotControlType = "listSlot"
+			</OnInitialized>
+			<OnUpdate> 
+				self:GetNamedChild('Status'):SetFont(IJA_WritPanel_GetPanelFont())
+				self:GetNamedChild('Name'):SetFont(IJA_WritPanel_GetPanelFont())
+			</OnUpdate>
+			<Controls>
+				<Control name="$(parent)Row" override="true" tier="HIGH">
+					<Anchor point="TOPLEFT" offsetX="0" />
+					<Anchor point="BOTTOMRIGHT"/>
+					<!--Controls>
+						<Backdrop name="$(parent)Bg" inherits="ZO_DefaultBackdrop" alpha="0.5" excludeFromResizeToFitExtents="true">
+							<AnchorFill/>
+						</Backdrop>
+					</Controls-->
+				</Control>
+				
+				<Control name="$(parent)IconContainer">
+					<Anchor point="TOPLEFT" relativeTo="$(parent)Row" offsetX="0"/>
+					<Controls>
+						<Texture name="$(parent)Icon" override="true" inherits="IJA_WritHelper_ToolTip">
+							<Anchor point="TOP" offsetY="-2"/>
+						</Texture>
+					</Controls>
+				</Control>
+				
+				<Label name="$(parent)Status" font="ZoFontWinH5" horizontalAlignment="RIGHT">
+					<Anchor point="TOPRIGHT" relativeTo="$(parent)Row" relativePoint="TOPRIGHT" offsetX="-5" offsetY="2"/>
+				</Label>
+				<Label name="$(parent)Name" font="ZoFontWinH5"  horizontalAlignment="CENTER" inherits="IJA_WritHelper_ToolTip" override="true">
+					<Anchor point="TOPLEFT" relativeTo="$(parent)IconContainerIcon" relativePoint="TOPRIGHT" offsetX="0" offsetY="0"/>
+					<Anchor point="TOPRIGHT" relativeTo="$(parent)Status"  relativePoint="TOPLEFT" offsetX="0" offsetY="0"/>
+					<Controls>
+						<Texture name="$(parent)Strike" layer="OVERLAY" tier="HIGH" color="cf1717" textureFile="/esoui/art/windows/gamepad/gp_nav2_journal_hordivider.dds">
+							<Anchor point="TOPLEFT" relativeTo="$(parent)" offsetX="0" offsetY="10"/>
+							<Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" offsetX="0" offsetY="-10"/>
+						</Texture>
+						<Texture name="$(parent)Notice" textureFile="/esoui/art/login/login_icon_info.dds" alpha="1">
+							<Dimensions x="30" y="30"/>
+							<Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPRIGHT"  offsetX="-15" offsetY="-5"/>
+						</Texture>
+					</Controls>
+				</Label>
+			</Controls>
+		</Control>
+		
+		<Control name="IJA_WritPanel" virtual="true" mouseEnabled="true" hidden="true">
+			<Anchor point="TOPLEFT" relativeTo="GuiRoot" offsetX="5" offsetY="5"/>
+			<Dimensions x="420" y="100"/>
+			<Controls>
+				<Control name="$(parent)Container" resizeToFitDescendents="true" movable="true" mouseEnabled="true" resizeHandleSize="1">
+					<Dimensions x="370" y="45"/>
+					<Anchor point="TOPLEFT" relativeTo="$(parent)" offsetX="50" offsetY="5"/>
+					<Controls>
+						<Backdrop name="$(parent)BG" inherits="ZO_DefaultBackdrop" alpha="0.5">
+							<AnchorFill/>
+						</Backdrop>
+						<Label name="$(parent)Header" excludeFromResizeToFitExtents="true" font="ZoFontWinH2" mouseEnabled="true" horizontalAlignment="CENTER" text="">
+							<Anchor point="TOPLEFT" relativeTo="$(parent)Container" offsetX="0" offsetY="5"/>
+							<Anchor point="TOPRIGHT" relativeTo="$(parent)Container" offsetX="0" offsetY="5"/>
+							<OnMouseEnter> self:SetHeaderColor(self, "OnMouseEnter") </OnMouseEnter>
+						</Label>
+						<Texture name="$(parent)Divider" excludeFromResizeToFitExtents="true" textureFile="/esoui/art/windows/gamepad/gp_nav2_journal_hordivider.dds">
+							<Dimensions y="8"/>
+							<Anchor point="BOTTOMLEFT" relativeTo="$(parent)Header" offsetX="0" offsetY="0"/>
+							<Anchor point="BOTTOMRIGHT" relativeTo="$(parent)Header" offsetX="0" offsetY="0"/>
+						</Texture>
+						<Control name="$(parent)Writs" excludeFromResizeToFitExtents="true" inherits="ZO_ScrollList">
+							<Anchor point="TOPLEFT" relativeTo="$(parent)Divider" offsetX="0" offsetY="10"/>
+							<Anchor point="BOTTOMRIGHT" relativeTo="$(parent)Container" offsetX="10" offsetY="0"/>
+						</Control>
+					</Controls>
+				</Control>
+				<Button name="$(parent)Maximize_Button" inherits="ZO_ButtonBehaviorClickSound">
+					<Dimensions x="32" y="32" />
+					<Anchor point="TPOLEFT" relativeTo="$(parent)" offsetX="5" offsetY="5"/>
+					<Textures
+						normal="/esoui/art/buttons/large_rightarrow_up.dds"
+						pressed="/esoui/art/buttons/large_rightarrow_down.dds"
+						mouseOver="/esoui/art/buttons/large_rightarrow_over.dds"
+						disabled="/esoui/art/buttons/large_rightarrow_disabled.dds"/>
+				</Button>
+				<Button name="$(parent)Minimize_Button" inherits="ZO_ButtonBehaviorClickSound">
+					<Dimensions x="32" y="32" />
+					<Anchor point="TPOLEFT" relativeTo="$(parent)" offsetX="5" offsetY="5"/>
+					<Textures
+						normal="/esoui/art/buttons/large_leftarrow_up.dds"
+						pressed="/esoui/art/buttons/large_leftarrow_down.dds"
+						mouseOver="/esoui/art/buttons/large_leftarrow_over.dds"
+						disabled="/esoui/art/buttons/large_leftarrow_disabled.dds"/>
+				</Button>
+			</Controls>
+		</Control>
+        <TopLevelControl name="IJA_WritHelper">
+            <OnInitialized>
+                IJA_WritHelper_Initialize(self)
+            </OnInitialized>
+			<Controls>
+				<Control name="$(parent)WritPanel" inherits="IJA_WritPanel" hidden="true">
+				</Control>
+			</Controls>
+        </TopLevelControl>
+		<TopLevelControl name="IJA_WritHelper_Shared"/>
+<!--                                      Dialogues                                          -->
+		<TopLevelControl name="IsJustaWritHelper_Dialog" layer="OVERLAY" tier="HIGH" inherits="ZO_CustomDialogBase">
+			<Controls>
+				<Control name="$(parent)Container" inherits="ZO_ScrollContainer ZO_DialogContentAnchors">
+					<DimensionConstraints maxY="650"/>
+					<Controls>
+						<Label name="$(parent)Text" font="ZoFontWinH2" color="INTERFACE_COLOR_TYPE_TEXT_COLORS:INTERFACE_TEXT_COLOR_NORMAL" mouseEnabled="true" linkEnabled="true">
+							<Dimensions x="500"/>
+							<Anchor point="TOP"/>
+						</Label>
+					</Controls>
+				</Control>
+				<Control name="$(parent)Close" inherits="ZO_CustomDialogButton"/>
+				<Control name="$(parent)Confirm" inherits="ZO_CustomDialogButton"/>
+			</Controls>
+		</TopLevelControl>
+	</Controls>
+</GuiXml>

@@ -1,0 +1,51 @@
+5.1.6
+○ changed addon structure
+○ fixed bank withdraw
+○ wokred on writ updates
+
+5.1.5
+○ changed writId to "craftingType .. (isMasterWrit and 1 or 0)"
+
+5.1.4
+○ added function to get updated questIndex
+
+5.1.3
+○ updated for changed gamepad alchemy crafting scene for easy alchemy
+○ fixed error caused by missing rune
+○ added functions to get link for missing rune to show in writ panel
+
+5.1.2
+○ fixed "Alchemy.lua:182: attempt to index a nil value" error on alchemy writs
+○ changed how items are compared when checking for banked items
+○ added function to smithing to update the link level
+
+5.1.1
+○ fixed alchemy error from missing recipeData by added new function to lib
+○ changed bank lookup to recipeData_object
+○ fixed writPanel not updating after withdrawing items from bank
+○ changed how smithing auto-improve data is handled
+○ fixed processing of auto-opening containers
+
+5.1
+○ several changes to writ processing
+○ individual writ conditions are now objects
+
+5.0.4
+○ fixed error associated with saved variables
+○ many events are now dynamic, only active while writs are active
+○ the Writ Panel is now fully dynamic. no longer uses multiple templates for selecting font size
+
+5.0.3
+○ fixed invalid "cannont craft this item" smithing alert
+
+5.0.2
+○ fixed nil itemTraitType causing the following error
+user:/AddOns/IsJustaWritHelper/Smithing.lua:1595: operator + is not supported for nil + number
+
+5.0.1
+○ fixed smithing tab index
+○ fixed trait information
+○ implementation of auto-improvement
+
+5
+○ initial upload
