@@ -1279,7 +1279,10 @@ function Smithing_Writ_Object:GetRecipeData(conditionInfo)
 --	local patternIndex, materialIndex
 	local itemId = conditionInfo.itemId ~= 0 and conditionInfo.itemId or baseItemId[conditionInfo.itemTemplateId]
 	local itemLink = self:GetItemLink(itemId)
+<<<<<<< HEAD
 	self.comparator	= self:GetComparator(itemLink)
+=======
+>>>>>>> 24e0d3fce82455052f34b6c61351b5ef86aa7008
 	
 	if conditionInfo.isMasterWrit then
 		-- until the correct crafting station is used, itemId and itemLink are set to a generic item of correct type
@@ -1316,7 +1319,11 @@ function Smithing_Writ_Object:AutoCraft()
 		local patternIndex, materialIndex, materialQuantity, itemStyleId, traitIndex, useUniversalStyleItem, numIterations = self:GetAllCraftingParameters()
 
 		local maxIterations, craftingResult = GetMaxIterationsPossibleForSmithingItem(
+<<<<<<< HEAD
 				patternIndex, materialIndex, materialQuantity, itemStyleId, traitIndex, useUniversalStyleItem, numIterations
+=======
+				patternIndex, materialIndex, materialQuantity, itemStyleId, traitIndex, useUniversalStyleItem
+>>>>>>> 24e0d3fce82455052f34b6c61351b5ef86aa7008
 			)
 		
 		if maxIterations > 0 then
@@ -1337,10 +1344,24 @@ function Smithing_Writ_Object:GetAllCraftingParameters(recipeData)
 	local traitIndex = itemTraitType + 1
 	
 	local styleCount = GetCurrentSmithingStyleItemCount(itemStyleId)
+<<<<<<< HEAD
 	local numIterations = self:GetRequiredIterations()
 	
 	-- only craft up to the maximum of the quantity of the selected style item
 	numIterations = styleCount < numIterations and styleCount or numIterations
+=======
+	
+	-- only craft up to the maximum of the quantity of the selected style item
+	local function getNumIterations(styleCount, numIterations)
+		if self.craftingType == CRAFTING_TYPE_JEWELRYCRAFTING then
+			return numIterations
+		else
+			return styleCount < numIterations and styleCount or numIterations
+		end
+	end
+
+	local numIterations = getNumIterations(styleCount, self:GetRequiredIterations())
+>>>>>>> 24e0d3fce82455052f34b6c61351b5ef86aa7008
 	
 	return patternIndex, materialIndex, materialQuantity, itemStyleId, traitIndex, useUniversalStyleItem, numIterations
 end
@@ -1358,6 +1379,7 @@ function Smithing_Writ_Object:GetCraftingParametersWithoutIterations(recipeData)
 	return patternIndex, materialIndex, materialQuantity, itemStyleId, itemTraitType
 end
 
+<<<<<<< HEAD
 function Smithing_Writ_Object:MeetsCraftingRequierments()
 	local patternIndex, materialIndex, materialQuantity, itemStyleId, traitIndex = self:GetAllCraftingParameters()
 
@@ -1392,6 +1414,8 @@ function Smithing_Writ_Object:MeetsCraftingRequierments()
 	}
 end
 
+=======
+>>>>>>> 24e0d3fce82455052f34b6c61351b5ef86aa7008
 function Smithing_Writ_Object:GetMissingMessage()
 	local missingMessage = {}
 
@@ -1431,7 +1455,11 @@ function Smithing_Writ_Object:GetMissingMessage()
 		-- used if no other definded reson was true
 		local maxIterations, limitReason = GetMaxIterationsPossibleForSmithingItem(patternIndex, materialIndex, materialQuantity, itemStyleId, traitIndex, useUniversalStyleItem)
 		local numIterations = self:GetRequiredIterations()
+<<<<<<< HEAD
 		if maxIterations == numIterations then
+=======
+		if maxIterations < numIterations then
+>>>>>>> 24e0d3fce82455052f34b6c61351b5ef86aa7008
 			table.insert(missingMessage, GetString("SI_TRADESKILLRESULT", limitReason))
 		end
 	end
@@ -1458,7 +1486,12 @@ function Smithing_Writ_Object:SetStation()
 	local function setDesiredTabAndItem(tabIndex, hasSetTabsOnly)
 		if GAMEPAD_SMITHING_CREATION_SCENE:IsShowing() or (SMITHING_SCENE:IsShowing() and SMITHING.mode == self:GetWrtitType()) then
 			EVENT_MANAGER:UnregisterForUpdate("IJA_WaitForScene")
+<<<<<<< HEAD
 			if self:GetWrtitType() == WRIT_TYPE_CRAFT then
+=======
+			local writType = self:GetWrtitType()
+			if writType == WRIT_TYPE_CRAFT then
+>>>>>>> 24e0d3fce82455052f34b6c61351b5ef86aa7008
 				
 				if hasSetTabsOnly and not CanSmithingSetPatternsBeCraftedHere() then
 				else
@@ -1474,10 +1507,30 @@ function Smithing_Writ_Object:SetStation()
 				end, 100)
 			else
 				local zo_Object = IsInGamepadPreferredMode() and SMITHING_GAMEPAD or SMITHING
+<<<<<<< HEAD
 				local itemLink = self:GetItemLink(self.itemId)
 				local bagId, slotIndex = ZO_Inventory_GetBagAndIndex(self:GetItemData(self.itemId, self:GetComparator(itemLink)))
 				if bagId then
 					zo_Object = self:GetWrtitType() == WRIT_TYPE_REFINE and zo_Object.refinementPanel or zo_Object.deconstructionPanel
+=======
+				
+				local function comparator(itemId, itemData)
+					if itemId ~= GetItemId(itemData.bagId, itemData.slotIndex) then return false end
+					
+					if writType == WRIT_TYPE_REFINE then
+						return ZO_SharedSmithingExtraction_IsRefinableItem(itemData.bagId, itemData.slotIndex)
+					else
+						local functionalQuality = select(8, GetItemInfo(itemData.bagId, itemData.slotIndex))
+						return functionalQuality == ITEM_FUNCTIONAL_QUALITY_NORMAL
+					end
+				end
+				
+				local itemData = IJA_WRITHELPER:GetItemData(itemId, comparator, IJA_BAG_ALL)
+	
+				local bagId, slotIndex = ZO_Inventory_GetBagAndIndex(itemData)
+				if bagId then
+					zo_Object = writType == WRIT_TYPE_REFINE and zo_Object.refinementPanel or zo_Object.deconstructionPanel
+>>>>>>> 24e0d3fce82455052f34b6c61351b5ef86aa7008
 					zo_Object:AddItemToCraft(bagId, slotIndex)
 				end
 			end
@@ -1553,7 +1606,13 @@ function Smithing_Writ_Object:GetStyleId(patternIndex)
 	self:UpdateSmithingStyleList(patternIndex)
 	
 	if self.savedVars.useMostStyle then
+<<<<<<< HEAD
 		return self.StyleList[1].itemStyleId
+=======
+		if #self.StyleList > 0 then
+			return self.StyleList[1].itemStyleId
+		end
+>>>>>>> 24e0d3fce82455052f34b6c61351b5ef86aa7008
 	end
 	return GetFirstKnownItemStyleId(patternIndex)
 end
@@ -1592,10 +1651,26 @@ function Smithing_Writ_Object:GetItemStyleItemId(itemStyleId)
 end
 
 function Smithing_Writ_Object:GetSmithingStyleItemInfo(itemStyleId)
+<<<<<<< HEAD
     local styleItemLink = GetItemStyleMaterialLink(itemStyleId)
 	local itemId = GetItemLinkItemId(styleItemLink)
 	local itemData = self:GetItemData(itemId, IJA_IsStyleMaterial)
 	if itemData then
+=======
+	local function comparator(itemId, itemData)
+		return itemId == GetItemId(itemData.bagId, itemData.slotIndex)
+	end
+	
+    local styleItemLink = GetItemStyleMaterialLink(itemStyleId)
+	local itemId = GetItemLinkItemId(styleItemLink)
+	
+	local itemData = IJA_WRITHELPER:GetItemData(itemId, comparator, IJA_BAG_ALL)
+--	d( '---')
+
+	if itemData then
+--d( itemId)
+--d( GetItemId(itemData.bagId, itemData.slotIndex))
+>>>>>>> 24e0d3fce82455052f34b6c61351b5ef86aa7008
 		local stackCount = itemData.stackCount or 0
 		return itemData.name, stackCount, itemStyleId, itemData.itemId, itemData.meetsUsageRequirement
 	end
@@ -1625,7 +1700,11 @@ function Smithing_Writ_Object:UpdateSmithingStyleList(patternIndex)
 		if canAddStyileItem(itemStyleId, patternIndex, meetsUsageRequirement, stackCount) then
 			local data = {
 				styleItem = styleName,
+<<<<<<< HEAD
 				stackCount = stackCount, 
+=======
+				stackCount = stackCount,
+>>>>>>> 24e0d3fce82455052f34b6c61351b5ef86aa7008
 				itemStyleId = itemStyleId,
 				itemId = itemId,
 			}
@@ -1633,21 +1712,38 @@ function Smithing_Writ_Object:UpdateSmithingStyleList(patternIndex)
 			table.insert(styleList, data)
 		end
 		
+<<<<<<< HEAD
 		if i == 9 and self.savedVars.useRaceStyles then 
+=======
+		if i == 9 and self.savedVars.useRaceStyles then
+>>>>>>> 24e0d3fce82455052f34b6c61351b5ef86aa7008
 			i = GetImperialStyleId()
 		else
 			i = i + 1
 		end
     until i == numStyles
 	
+<<<<<<< HEAD
 	table.sort(styleList, function(a,b)return a.stackCount > b.stackCount end)
+=======
+	table.sort(styleList, function(a,b )return a.stackCount > b.stackCount end)
+--	d( styleList)
+>>>>>>> 24e0d3fce82455052f34b6c61351b5ef86aa7008
 	self.StyleList = styleList
 end
 
 function Smithing_Writ_Object:GetMaterialData(materialItemId)
+<<<<<<< HEAD
 	local comparator = self:GetComparator(self:GetItemLink(materialItemId))
 	local itemData =  self:GetItemData(materialItemId, comparator)
 	return itemData
+=======
+	local function comparator(itemId, itemData)
+		return itemId == GetItemId(itemData.bagId, itemData.slotIndex)
+	end
+	
+	return IJA_WRITHELPER:GetItemData(materialItemId, comparator, IJA_BAG_ALL)
+>>>>>>> 24e0d3fce82455052f34b6c61351b5ef86aa7008
 end
 
 function Smithing_Writ_Object:GetMaterialItemId(materialIndex)
@@ -1715,7 +1811,10 @@ end
 -------------------------------------
 function Smithing_Writ_Object:GetImprovementData(functionalQuality, craftingType)
 	local upgradeFromFunctionalQuality = functionalQuality - 1
+<<<<<<< HEAD
 --	local reagentsAvailable = select(3, GetSmithingImprovementItemInfo(craftingType, upgradeFromFunctionalQuality))
+=======
+>>>>>>> 24e0d3fce82455052f34b6c61351b5ef86aa7008
 	local reagentName, _, reagentsAvailable = GetSmithingImprovementItemInfo(craftingType, upgradeFromFunctionalQuality)
 	local reagentsRequired = GetSmithingGuaranteedImprovementItemAmount(craftingType, upgradeFromFunctionalQuality)
 	local itemLink = GetSmithingImprovementItemLink(craftingType, functionalQuality)
@@ -1792,9 +1891,16 @@ end
 function Smithing_Writ_Object:HasItemToImproveForWrit()
 	if not self.isMasterWrit then return false end
 	local conditionInfo = self.conditionInfo
+<<<<<<< HEAD
 	local patternIndex, materialIndex, desiredItemId = GetSmithingPatternInfoForItemSet(conditionInfo.itemTemplateId, conditionInfo.itemSetId, conditionInfo.materialItemId, conditionInfo.itemTraitType)
 	
 	-- update itemId and itemLink to correct item
+=======
+	local desiredItemId = select(3, GetSmithingPatternInfoForItemSet(conditionInfo.itemTemplateId, conditionInfo.itemSetId, conditionInfo.materialItemId, conditionInfo.itemTraitType))
+--	local patternIndex, materialIndex, desiredItemId = GetSmithingPatternInfoForItemSet(conditionInfo.itemTemplateId, conditionInfo.itemSetId, conditionInfo.materialItemId, conditionInfo.itemTraitType)
+
+-- update itemId and itemLink to correct item
+>>>>>>> 24e0d3fce82455052f34b6c61351b5ef86aa7008
 	self.itemId = desiredItemId
 	self.itemLink =  self:UpdateLinkLevel(self:GetItemLink(desiredItemId))
 
@@ -1802,8 +1908,19 @@ function Smithing_Writ_Object:HasItemToImproveForWrit()
 end
 
 function Smithing_Writ_Object:GetImprovementItemData()
+<<<<<<< HEAD
 	local itemData = self:GetItemData(self.itemId, self.comparator)
 --	local bagId, slotIndex = self:GetBagAndSlot(itemData)
+=======
+	local function comparator(itemId, itemData)
+		if itemId ~= GetItemId(itemData.bagId, itemData.slotIndex) then return false end
+		local itemLink = GetItemLink(itemData.bagId, itemData.slotIndex)
+		local setId = select(6, GetItemLinkSetInfo(itemLink))
+		return self.itemSetId == setId
+	end
+
+	local itemData = IJA_WRITHELPER:GetItemData(itemId, comparator, IJA_BAG_BACKPACK)
+>>>>>>> 24e0d3fce82455052f34b6c61351b5ef86aa7008
 	local bagId, slotIndex = ZO_Inventory_GetBagAndIndex(itemData)
 	return bagId, slotIndex
 end
@@ -1812,11 +1929,31 @@ end
 -- Deconstruct or Refine
 -------------------------------------
 function Smithing_Writ_Object:Deconstruct(bagId, slotIndex)
+<<<<<<< HEAD
 	local zo_Object = IsInGamepadPreferredMode() and SMITHING_GAMEPAD or SMITHING
 	zo_Object = self:GetWrtitType() == WRIT_TYPE_REFINE and zo_Object.refinementPanel or zo_Object.deconstructionPanel
 
 	local itemLink = self:GetItemLink(self.itemId)
 	local bagId, slotIndex = ZO_Inventory_GetBagAndIndex(self:GetItemData(self.itemId, self:GetComparator(itemLink)))
+=======
+	local writType = self:GetWrtitType()
+	local zo_Object = IsInGamepadPreferredMode() and SMITHING_GAMEPAD or SMITHING
+	zo_Object = writType == WRIT_TYPE_REFINE and zo_Object.refinementPanel or zo_Object.deconstructionPanel
+
+	local function comparator(itemId, itemData)
+		if itemId ~= GetItemId(itemData.bagId, itemData.slotIndex) then return false end
+		
+		if writType == WRIT_TYPE_REFINE then
+			return ZO_SharedSmithingExtraction_IsRefinableItem(itemData.bagId, itemData.slotIndex)
+		else
+			local functionalQuality = select(8, GetItemInfo(itemData.bagId, itemData.slotIndex))
+			return functionalQuality == ITEM_FUNCTIONAL_QUALITY_NORMAL
+		end
+	end
+	
+	local itemData = IJA_WRITHELPER:GetItemData(itemId, comparator, IJA_BAG_ALL)
+	local bagId, slotIndex = ZO_Inventory_GetBagAndIndex(itemData)
+>>>>>>> 24e0d3fce82455052f34b6c61351b5ef86aa7008
 	if bagId then
 		PrepareDeconstructMessage()
 		local quantity = zo_Object:IsInRefineMode() and GetRequiredSmithingRefinementStackSize() or 1
@@ -1830,6 +1967,7 @@ end
 IJA_WritHelper_Smithing_Object = Smithing_Writ_Object
 
 --[[
+<<<<<<< HEAD
 
 	local zo_Object = IsInGamepadPreferredMode() and SMITHING_GAMEPAD or SMITHING
 	zo_Object.creationPanel:AddItemToCraft(bagId, slotIndex)
@@ -1839,6 +1977,21 @@ IJA_WritHelper_Smithing_Object = Smithing_Writ_Object
         local comparator = self:GetComparator(itemId)
         local itemData = self:GetItemData(itemId, comparator)
 
+=======
+	
+	/script d(IJA_WRITHELPER.writData[CRAFTING_TYPE_CLOTHIER][8].StyleList)
+	IJA_WRITHELPER.writData[CRAFTING_TYPE_CLOTHIER][8]
+/script IJA_WRITHELPER.writData[CRAFTING_TYPE_CLOTHIER][8]:UpdateSmithingStyleList()
+	/script for k,v in pairs(IJA_WRITHELPER.writData[CRAFTING_TYPE_CLOTHIER]) do d(k) end
+
+smithing
+	decon
+	local validItems = lib:EnumerateInventorySlotsAndAddToScrollData(ZO_SharedSmithingExtraction_IsExtractableItem, ZO_SharedSmithingExtraction_DoesItemPassFilter)
+enchanting
+	local validItems = lib:EnumerateInventorySlotsAndAddToScrollData(ZO_Enchanting_IsEnchantingItem, ZO_Enchanting_DoesEnchantingItemPassFilter)
+provisioning
+	local validItems = lib:EnumerateInventorySlotsAndAddToScrollData(ZO_Enchanting_IsEnchantingItem, ZO_Enchanting_DoesEnchantingItemPassFilter)
+>>>>>>> 24e0d3fce82455052f34b6c61351b5ef86aa7008
 
 
 

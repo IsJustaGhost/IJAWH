@@ -4,6 +4,7 @@
 local strings = {
 IJAWH_BUTTON_RESETWRIT = "Reset For Writ",
 
+<<<<<<< HEAD
 SI_IJAWH_NOTENOUGH              = "Vous n'avez pas assez <<1>>.", --  "You do not have enough
 SI_IJAWH_CHATTEROPTION1			= "Parcourir les commandes de forge", -- "Examine the Blacksmith Writs"
 SI_IJAWH_CHATTEROPTION2			= "Parcourir les commandes de couture", -- "Examine the Clothier Writs"
@@ -14,6 +15,20 @@ SI_IJAWH_CHATTEROPTION6			= "Parcourir les commandes de travail du bois", -- "Ex
 SI_IJAWH_CHATTEROPTION7			= "Examiner les commandes de joaillerie", -- "Examine the Jewelry Crafting Writs"
 SI_IJAWH_CHATTEROPTION8			= "J'en ai sur moi.", -- "I've got them right here"
 SI_IJAWH_CHATTEROPTION9 		= "Placer les produits dans la caisse", -- "Place the goods within the crate."
+=======
+SI_IJAWH_NOTENOUGH              = "<Vous n'avez pas assez <<1>>.", --  "You do not have enough
+
+SI_IJAWH_CHATTEROPTION1			= "<Parcourir les commandes de forge.>", -- "Examine the Blacksmith Writs"
+SI_IJAWH_CHATTEROPTION2			= "<Parcourir les commandes de couture.>", -- "Examine the Clothier Writs"
+SI_IJAWH_CHATTEROPTION3			= "<Parcourir les commandes d'enchantement.>", -- "Examine the Enchanter Writs"
+SI_IJAWH_CHATTEROPTION4			= "<Parcourir les commandes d'alchimie.>", -- "Examine the Alchemist Writs"
+SI_IJAWH_CHATTEROPTION5			= "<Parcourir les commandes de cuisine.>", -- "Examine the Provisioner Writs"
+SI_IJAWH_CHATTEROPTION6			= "<Parcourir les commandes de travail du bois.>", -- "Examine the Woodworker Writs"
+SI_IJAWH_CHATTEROPTION7			= "<Examiner les commandes de joaillerie.>", -- "Examine the Jewelry Crafting Writs"
+
+SI_IJAWH_CHATTEROPTION8			= "J'en ai sur moi.", -- "I've got them right here"
+SI_IJAWH_CHATTEROPTION9 		= "<Placer les produits dans la caisse.>", -- "Place the goods within the crate."
+>>>>>>> 24e0d3fce82455052f34b6c61351b5ef86aa7008
 SI_IJAWH_CHATTEROPTION10		= "Signer le manifeste", -- "Sign the Manifest"
 SI_IJAWH_CHATTEROPTION11		= "Accomplir la quéte", -- "finished the job"
 

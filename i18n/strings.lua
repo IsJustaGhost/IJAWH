@@ -5,6 +5,7 @@ IJAWH_ACQUIRE_STRING = "Acquire"
 
 SI_IJAWH_NOT_ENOUGH             = "You do not have enough <<1>>."
 
+<<<<<<< HEAD
 SI_IJAWH_CHATTEROPTION1			= "Examine the Blacksmith Writs"
 SI_IJAWH_CHATTEROPTION2			= "Examine the Clothier Writs"
 SI_IJAWH_CHATTEROPTION3			= "Examine the Enchanter Writs"
@@ -14,6 +15,17 @@ SI_IJAWH_CHATTEROPTION6			= "Examine the Woodworker Writs"
 SI_IJAWH_CHATTEROPTION7			= "Examine the Jewelry Crafting Writs"
 SI_IJAWH_CHATTEROPTION8			= "I've got them right here"
 SI_IJAWH_CHATTEROPTION9			= "Place the goods within the crate."
+=======
+SI_IJAWH_CHATTEROPTION1			= "<Examine the Blacksmith Writs.>"
+SI_IJAWH_CHATTEROPTION2			= "<Examine the Clothier Writs.>"
+SI_IJAWH_CHATTEROPTION3			= "<Examine the Enchanter Writs.>"
+SI_IJAWH_CHATTEROPTION4			= "<Examine the Alchemist Writs.>"
+SI_IJAWH_CHATTEROPTION5			= "<Examine the Provisioner Writs.>"
+SI_IJAWH_CHATTEROPTION6			= "<Examine the Woodworker Writs.>"
+SI_IJAWH_CHATTEROPTION7			= "<Examine the Jewelry Crafting Writs.>"
+SI_IJAWH_CHATTEROPTION8			= "I've got them right here"
+SI_IJAWH_CHATTEROPTION9			= "<Place the goods within the crate.>"
+>>>>>>> 24e0d3fce82455052f34b6c61351b5ef86aa7008
 SI_IJAWH_CHATTEROPTION10		= "Sign the Manifest"
 SI_IJAWH_CHATTEROPTION11 		= "finished the job"
 

@@ -1,6 +1,11 @@
 -------------------------------------
 -- Enchanting
 -------------------------------------
+<<<<<<< HEAD
+=======
+local isGamepadMode = IJA_WRITHELPER.isGamepadMode
+
+>>>>>>> 24e0d3fce82455052f34b6c61351b5ef86aa7008
 local glyphTable = { -- essenceRune and key to use for selecting the potencyRune table
 	[5364]	= { -- Glyph of Frost Resist
 		["key"] = 1,
@@ -186,7 +191,11 @@ end
 
 local function setRuneSounds(rune1BagId, rune1SlotIndex, rune2BagId, rune2SlotIndex, rune3BagId, rune3SlotIndex)
 	-- set the spoken audio of rune names that will be used during crafting
+<<<<<<< HEAD
 	local zo_Object = IsInGamepadPreferredMode() and GAMEPAD_ENCHANTING or ENCHANTING
+=======
+	local zo_Object = isGamepadMode and GAMEPAD_ENCHANTING or ENCHANTING
+>>>>>>> 24e0d3fce82455052f34b6c61351b5ef86aa7008
 	
 	zo_Object.potencySound, zo_Object.potencyLength = GetRunestoneSoundInfo(rune1BagId, rune1SlotIndex)
 	zo_Object.essenceSound, zo_Object.essenceLength = GetRunestoneSoundInfo(rune2BagId, rune2SlotIndex)
@@ -195,7 +204,11 @@ end
 
 local function SetEnchantingSlots(runes)	
 	-- sets selected runes to crafting slots
+<<<<<<< HEAD
 	local zo_Object = IsInGamepadPreferredMode() and GAMEPAD_ENCHANTING or ENCHANTING
+=======
+	local zo_Object = isGamepadMode and GAMEPAD_ENCHANTING or ENCHANTING
+>>>>>>> 24e0d3fce82455052f34b6c61351b5ef86aa7008
 	for i=1, #runes do
 		if runes[i].meetsUsageRequirement then
 			local bagId, slotIndex = ZO_Inventory_GetBagAndIndex(runes[i])
@@ -204,14 +217,22 @@ local function SetEnchantingSlots(runes)
 		end
 	end
 	
+<<<<<<< HEAD
 	if IsInGamepadPreferredMode() then
+=======
+	if isGamepadMode then
+>>>>>>> 24e0d3fce82455052f34b6c61351b5ef86aa7008
 		GAMEPAD_ENCHANTING:UpdateSelection()
 	else
 		ENCHANTING.inventory:HandleDirtyEvent()
 	end
 end
 
+<<<<<<< HEAD
 local function notEnough(itemLink)
+=======
+local function missingRune(itemLink)
+>>>>>>> 24e0d3fce82455052f34b6c61351b5ef86aa7008
 	return zo_strformat(GetString(SI_IJAWH_NOT_ENOUGH), itemLink)
 end
 
@@ -229,12 +250,27 @@ function Enchanting_Writ_Object:GetRecipeData(conditionInfo)
 	conditionInfo.essenceRune = essenceRune
 	conditionInfo.aspectRune = aspectRune
 	
+<<<<<<< HEAD
 	if potencyRune and essenceRune and aspectRune then
 		local recipeData = {
 			['runes'] = {
 				[1] = self:GetItemData(potencyRune, IJA_IsRune),
 				[2] = self:GetItemData(essenceRune, IJA_IsRune),
 				[3] = self:GetItemData(aspectRune, IJA_IsRune)
+=======
+	local function comparator(itemId, itemData)
+		if itemId ~= GetItemId(itemData.bagId, itemData.slotIndex) then return false end
+		
+		return ZO_Enchanting_IsEnchantingItem(itemData.bagId, itemData.slotIndex)
+	end
+	
+	if potencyRune and essenceRune and aspectRune then
+		local recipeData = {
+			['runes'] = {
+				[1] = IJA_WRITHELPER:GetItemData(potencyRune, comparator, IJA_BAG_ALL),
+				[2] = IJA_WRITHELPER:GetItemData(essenceRune, comparator, IJA_BAG_ALL),
+				[3] = IJA_WRITHELPER:GetItemData(aspectRune, comparator, IJA_BAG_ALL)
+>>>>>>> 24e0d3fce82455052f34b6c61351b5ef86aa7008
 			},
 			itemId = itemId
 		}
@@ -302,6 +338,7 @@ function Enchanting_Writ_Object:GetMissingMessage()
 	if not DoesPlayerHaveRunesForEnchanting(conditionInfo.aspectRune, conditionInfo.essenceRune, conditionInfo.potencyRune) then
 		local rune1BagId, rune1SlotIndex, rune2BagId, rune2SlotIndex, rune3BagId, rune3SlotIndex = self:GetAllCraftingBagAndSlots()
 		if not rune1SlotIndex then
+<<<<<<< HEAD
 			table.insert(missingMessage, notEnough(self:GetItemLink(conditionInfo.potencyRune)))
 			
 		end
@@ -311,6 +348,17 @@ function Enchanting_Writ_Object:GetMissingMessage()
 		end		
 		if not rune3SlotIndex then
 			table.insert(missingMessage, notEnough(self:GetItemLink(conditionInfo.aspectRune)))
+=======
+			table.insert(missingMessage, missingRune(self:GetItemLink(conditionInfo.potencyRune)))
+			
+		end
+		if not rune2SlotIndex then
+			table.insert(missingMessage, missingRune(self:GetItemLink(conditionInfo.essenceRune)))
+            
+		end		
+		if not rune3SlotIndex then
+			table.insert(missingMessage, missingRune(self:GetItemLink(conditionInfo.aspectRune)))
+>>>>>>> 24e0d3fce82455052f34b6c61351b5ef86aa7008
             
 		end
 	else
@@ -336,7 +384,11 @@ end
 
 function Enchanting_Writ_Object:SelectMode()
 	if SCENE_MANAGER:GetPreviousSceneName() == 'hud' then
+<<<<<<< HEAD
 		if IsInGamepadPreferredMode() then
+=======
+		if isGamepadMode then
+>>>>>>> 24e0d3fce82455052f34b6c61351b5ef86aa7008
 			SCENE_MANAGER:Push("gamepad_enchanting_creation")
 		else
 			ZO_MenuBar_SelectDescriptor(ENCHANTING.modeBar, ENCHANTING_MODE_CREATION)

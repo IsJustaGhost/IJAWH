@@ -6,6 +6,7 @@ IJAWH_BUTTON_RESETWRIT = "Reset For Writ",
 
 SI_IJAWH_NOTENOUGH              = "Недостаточно <<1>>.", --  "You do not have enough
 
+<<<<<<< HEAD
 SI_IJAWH_CHATTEROPTION1			= "Прочесть заказы для кузнецов", -- "Examine the Blacksmith Writs"
 SI_IJAWH_CHATTEROPTION2			= "Прочесть заказы для портных", -- "Examine the Clothier Writs"
 SI_IJAWH_CHATTEROPTION3			= "Прочесть заказы для зачарователей", -- "Examine the Enchanter Writs"
@@ -15,6 +16,18 @@ SI_IJAWH_CHATTEROPTION6			= "Прочесть заказы для столяро
 SI_IJAWH_CHATTEROPTION7			= "Прочесть заказы для ювелиров", -- "Examine the Jewelry Crafting Writs"
 SI_IJAWH_CHATTEROPTION8			= "У меня есть все, что нужно.",  -- "I've got them right here"
 SI_IJAWH_CHATTEROPTION9			= "Положить предметы в ящик", -- "Place the goods within the crate."
+=======
+SI_IJAWH_CHATTEROPTION1			= "<Прочесть заказы для кузнецов.>", -- "Examine the Blacksmith Writs"
+SI_IJAWH_CHATTEROPTION2			= "<Прочесть заказы для портных.>", -- "Examine the Clothier Writs"
+SI_IJAWH_CHATTEROPTION3			= "<Прочесть заказы для зачарователей.>", -- "Examine the Enchanter Writs"
+SI_IJAWH_CHATTEROPTION4			= "<Прочесть заказы для алхимиков.>", -- "Examine the Alchemist Writs"
+SI_IJAWH_CHATTEROPTION5			= "<Прочесть заказы для снабженцев.>", -- "Examine the Provisioner Writs"
+SI_IJAWH_CHATTEROPTION6			= "<Прочесть заказы для столяров.>", -- "Examine the Woodworker Writs"
+SI_IJAWH_CHATTEROPTION7			= "<Прочесть заказы для ювелиров.>", -- "Examine the Jewelry Crafting Writs"
+
+SI_IJAWH_CHATTEROPTION8			= "У меня есть все, что нужно.",  -- "I've got them right here"
+SI_IJAWH_CHATTEROPTION9			= "<Положить предметы в ящик.>", -- "Place the goods within the crate."
+>>>>>>> 24e0d3fce82455052f34b6c61351b5ef86aa7008
 SI_IJAWH_CHATTEROPTION10		= "Подписать манифест", -- "Sign the Manifest"
 SI_IJAWH_CHATTEROPTION11		= "Заверщить задание", -- "Finished the job"
 

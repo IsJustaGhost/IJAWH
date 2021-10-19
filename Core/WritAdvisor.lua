@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+=======
+
+local isGamepadMode = IJA_WRITHELPER.isGamepadMode
+>>>>>>> 24e0d3fce82455052f34b6c61351b5ef86aa7008
 --------------ZO Writ Advisor--------------
 local function GetMissingMessage(questInfo, conditionInfo, currentCount, maxCount)
     --If we have already met the condition requirements, we no longer care about what components we have
@@ -33,7 +38,11 @@ local function GetMissingMessage(questInfo, conditionInfo, currentCount, maxCoun
             local validCombinationFound = false
             local needsThirdSlot = conditionInfo.isMasterWrit and GetNonCombatBonus(NON_COMBAT_BONUS_ALCHEMY_THIRD_SLOT) == 0
             --Check and see if the alchemy logic has found any valid combinations
+<<<<<<< HEAD
             if IsInGamepadPreferredMode() then   
+=======
+            if isGamepadMode then   
+>>>>>>> 24e0d3fce82455052f34b6c61351b5ef86aa7008
                 validCombinationFound = GAMEPAD_ALCHEMY:HasValidCombinationForQuest()
             else
                 validCombinationFound = ALCHEMY:HasValidCombinationForQuest()

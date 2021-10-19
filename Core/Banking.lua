@@ -5,6 +5,7 @@
 local HandleBankedItems = IJA_WRITHELPER
 local withdrawList = {}
 
+<<<<<<< HEAD
 local function isItemLocked(bagId, slotIndex)
 	local locked = IsItemPlayerLocked(bagId, slotIndex)
 	
@@ -23,6 +24,8 @@ local function isMatch(itemId, bagId, slotIndex)
 		not isItemLocked(bagId, slotIndex)
 end
 
+=======
+>>>>>>> 24e0d3fce82455052f34b6c61351b5ef86aa7008
 local function CreatedBySelf(itemData) -- comparator
 	local creatorName = GetItemCreatorName(itemData.bagId, itemData.slotIndex)
 	return creatorName ~= '' and string.match(creatorName, GetUnitName("player"))
@@ -98,6 +101,7 @@ local function addItem(bagId, slotIndex, withdrawAmount, questIndex)
 	return data
 end
 
+<<<<<<< HEAD
 function HandleBankedItems:GetBankBagAndSlotForCreated(itemId, itemLink, comparator, encodedAlchemyTraits)
 	local function IsCreatedItem(itemData) -- comparator
 		return CreatedBySelf(itemData) and comparator(itemData)
@@ -157,6 +161,24 @@ function HandleBankedItems:GetBankBagAndSlot()
         if search_encodedLinkData == encodedLinkData then
             if IJA_IsAlchemyResultItem(itemData) then 
                 if self:CompareEncoadedAlchemyTraits(encodedAlchemyTraits, self.encodedAlchemyTraits) then
+=======
+function HandleBankedItems:GetBankBagAndSlot()
+	local function itemIdsMatch(itemId, itemData)
+		return itemId == GetItemId(itemData.bagId, itemData.slotIndex) and IsItemLinkCrafted(GetItemLink(itemData.bagId, itemData.slotIndex))
+	end
+	local function didIMakeThis(itemId, itemData) -- comparator
+		return CreatedBySelf(itemData) and itemIdsMatch(itemId, itemData)
+	end
+
+    local comparator = self.isMasterWrit and didIMakeThis or itemIdsMatch
+	local itemData = IJA_WRITHELPER:GetItemData(self.itemId, comparator, IJA_BAG_BANK)
+    if itemData ~= nil then
+		local search_encodedLinkData, search_encodedAlchemyTraits = self:GetItemLinkEncodedData(self.itemLink)
+		local encodedLinkData, encodedAlchemyTraits = self:GetItemLinkEncodedData(itemData.itemlink)
+        if search_encodedLinkData == encodedLinkData then
+            if IJA_IsAlchemyResultItem(itemData) and encodedAlchemyTraits and search_encodedAlchemyTraits then 
+                if self:CompareEncoadedAlchemyTraits(encodedAlchemyTraits, search_encodedAlchemyTraits) then
+>>>>>>> 24e0d3fce82455052f34b6c61351b5ef86aa7008
                     return itemData.bagId, itemData.slotIndex
                 end
             else
@@ -177,3 +199,7 @@ function HandleBankedItems:BankListAdd(itemId, itemLink, bagId, slotIndex, withd
 		d(zo_strformat(SI_IJAWH_ADDED_TO_WTHDRAW_LIST, itemLink, self.bankedList[itemId].required)) 
 	end
 end
+<<<<<<< HEAD
+=======
+--
+>>>>>>> 24e0d3fce82455052f34b6c61351b5ef86aa7008

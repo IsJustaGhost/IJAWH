@@ -11,6 +11,10 @@ local function getColor(state)
 --		COLOR_ERROR
 end
 
+<<<<<<< HEAD
+=======
+local isGamepadMode = IJA_WRITHELPER.isGamepadMode
+>>>>>>> 24e0d3fce82455052f34b6c61351b5ef86aa7008
 local scaleTemplates = {
 	[1] = {
 		['header'] = {
@@ -50,6 +54,10 @@ local scaleTemplates = {
 	},
 }
 
+<<<<<<< HEAD
+=======
+local performingFullRefresh = false
+>>>>>>> 24e0d3fce82455052f34b6c61351b5ef86aa7008
 -------------------------------------
 -- Writ panel
 -------------------------------------
@@ -93,7 +101,11 @@ local function setMouseOver(ctrl, text)
 	
 	ctrl:SetHandler("OnMouseEnter", function(self)
 		self:SetColor(self.color.enter:UnpackRGBA())
+<<<<<<< HEAD
 		ZO_Tooltips_ShowTextTooltip(self, RIGHT, text)
+=======
+		ZO_Tooltips_ShowTextTooltip(self:GetParent():GetNamedChild("Status"), RIGHT, text)
+>>>>>>> 24e0d3fce82455052f34b6c61351b5ef86aa7008
 	end)
 	ctrl:SetHandler("OnMouseExit", function(self)
 		ZO_Tooltips_HideTextTooltip()
@@ -293,6 +305,7 @@ function IJA_WritPanel:UpdateWritsPanelData()
 end
 
 function IJA_WritPanel:PerformFullRefresh()
+<<<<<<< HEAD
 	ZO_ScrollList_Clear(self.writs)
 	self:Refresh(ZO_ScrollList_GetDataList(self.writs))
 	ZO_ScrollList_Commit(self.writs)
@@ -307,13 +320,37 @@ function IJA_WritPanel:PerformFullRefresh()
 		elseif not IJAWH_WRITPANEL_LIST_IsHidden then
 			self:wpMinMax(false)
 		end
+=======
+	if not performingFullRefresh then
+		ZO_ScrollList_Clear(self.writs)
+		performingFullRefresh = true
+		self:Refresh(ZO_ScrollList_GetDataList(self.writs))
+		ZO_ScrollList_Commit(self.writs)
+		
+		if self.savedVars.autoCollaps then
+			local panelData = ZO_ScrollList_GetDataList(self.writs)
+			if COMPLETEDWRITS == #panelData and #panelData > 0 then
+				-- minimize or hide list when all lists are completed
+				local oldState = IJAWH_WRITPANEL_LIST_IsHidden and true or false
+				self:wpMinMax(true)
+				IJAWH_WRITPANEL_LIST_IsHidden = oldState
+			elseif not IJAWH_WRITPANEL_LIST_IsHidden then
+				self:wpMinMax(false)
+			end
+		end
+		performingFullRefresh = false
+>>>>>>> 24e0d3fce82455052f34b6c61351b5ef86aa7008
 	end
 end
 
 function IJA_WritPanel:Refresh(data)
 --	IJA_WRITHELPER:RefreshQuestList()
 	-- upadate all writs
+<<<<<<< HEAD
 	IJA_WRITHELPER:UpdateWrits()
+=======
+--	IJA_WRITHELPER:UpdateWrits()
+>>>>>>> 24e0d3fce82455052f34b6c61351b5ef86aa7008
 	
 	local panelData, completedWrits = self:UpdateWritsPanelData()
 	for index, newData in pairs(panelData) do
@@ -370,6 +407,7 @@ end
 
 local function updateWritsPanel()
 	IJA_WritPanel:WritsPanelControl()
+<<<<<<< HEAD
 	
 	-- not functioning
 	if #IJA_WRITHELPER.lockedItems > 0 then
@@ -377,6 +415,8 @@ local function updateWritsPanel()
 			d( v)
 		end
 	end
+=======
+>>>>>>> 24e0d3fce82455052f34b6c61351b5ef86aa7008
 end
 CALLBACK_MANAGER:RegisterCallback("IJA_WritHelper_Update_Writs_Panel", updateWritsPanel)
 
@@ -420,7 +460,11 @@ local function selectButton(minimize)
 end
 
 local function setToGroup()
+<<<<<<< HEAD
 	local groupDistance = IsInGamepadPreferredMode() and 60 or -10
+=======
+	local groupDistance = isGamepadMode and 60 or -10
+>>>>>>> 24e0d3fce82455052f34b6c61351b5ef86aa7008
 	return (ZO_SmallGroupAnchorFrame:GetRight() + groupDistance)
 end
 local function setToScreen(control)
