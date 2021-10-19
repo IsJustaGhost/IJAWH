@@ -116,3 +116,4 @@ function HandleBankedItems:BankListAdd(itemId, itemLink, bagId, slotIndex, withd
 		d(zo_strformat(SI_IJAWH_ADDED_TO_WTHDRAW_LIST, itemLink, self.bankedList[itemId].required)) 
 	end
 end
+--
