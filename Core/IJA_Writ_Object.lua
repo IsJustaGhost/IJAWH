@@ -251,6 +251,7 @@ function RecipeData_Object:UpdateCraftItems(itemId, required)
 	else
 		IJA_WRITHELPER.craftingItems[itemId]:Add(self, required)
 	end
+	-- IJA_WRITHELPER:AddCraftItemUsed(itemId, condition, required)
 end
 
 function RecipeData_Object:GetAllCraftItemsForCondition()
@@ -372,6 +373,22 @@ end
 function RecipeData_Object:HasConditionInfoChanged()
 	local condition ,current, maximum = GetJournalQuestConditionInfo(self.questIndex, QUEST_MAIN_STEP_INDEX, self.conditionIndex)
 	return condition ~= '' and self.current ~= current
+end
+
+function RecipeData_Object:TryCraftItem(craftFunction, ...)
+	craftFunction(...)
+	
+	zo_callLater(function()
+		if IJAWH_IsPerformingCraftProcess() then
+			self:SubtractItemsUsed()
+	--		IJA_WRITHELPER:SubtractCraftItemUsed(self.itemId, self.conditionId)
+--			d( 'crafting started')
+		else
+--			d( 'crafting failed')
+			-- failed to craft
+			EVENT_MANAGER:UnregisterForEvent("IJAWH_ON_CRAFTED_ITEM_UPDATED", EVENT_INVENTORY_SINGLE_SLOT_UPDATE, onCraftedItemUpdated)
+		end
+	end, 100)
 end
 
 --------------------------------------------------------------------------
@@ -510,8 +527,7 @@ end
 
 function Shared_Writ_Object:GetQuestIndex()
 	if IJA_WRITHELPER.questIndexToDataMap[self.questIndex] then
-		IJA_WRITHELPER.questIndexToDataMap[self.questIndex] = false
-		IJA_WRITHELPER.questIndexToDataMap[self.questIndex] = nil
+		self:SafelyDestroy(IJA_WRITHELPER.questIndexToDataMap[self.questIndex])
 	end
 	
 	for i, questInfo in ipairs(IJA_WRITHELPER.writMasterList) do
@@ -524,21 +540,6 @@ end
 -------------------------------------
 --
 -------------------------------------
-function Shared_Writ_Object:TryCraftItem(craftFunction, ...)
-	craftFunction(...)
-	
-	zo_callLater(function()
-		if IJAWH_IsPerformingCraftProcess() then
-			self:SubtractItemsUsed()
---			d( 'crafting started')
-		else
---			d( 'crafting failed')
-			-- failed to craft
-			EVENT_MANAGER:UnregisterForEvent("IJAWH_ON_CRAFTED_ITEM_UPDATED", EVENT_INVENTORY_SINGLE_SLOT_UPDATE, onCraftedItemUpdated)
-		end
-	end, 100)
-end
-
 function Shared_Writ_Object:GetCompleted()
 	local conditionCount = self:GetJournalQuestNumConditions(self.questIndex, QUEST_MAIN_STEP_INDEX)
 	local total, comp = 0, 0

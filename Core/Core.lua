@@ -524,6 +524,11 @@ function IJA_WritHelper:MapQuestIndexToDataMap(object)
     self.questIndexToDataMap[object.questIndex] = object
 end
 
+function IJA_WritHelper:SafelyDestroy(reference)
+    reference = false
+    reference = nil
+end
+    
 -------------------------------------
 -- Bag Cache
 -------------------------------------
@@ -555,24 +560,26 @@ function IJA_WritHelper:UpdateAllBags()
     for i=1, 3 do
         self:UpdateBagCache(i)
     end
+	-- self:UpdateAllCraftItems()
 end
 
 function IJA_WritHelper:UpdateSingleSlot(bagId, slotIndex)
-    for bag=1, 3 do
+    for bag = 1, 3 do
         local bagCache = self:GetOrCreateBagCache(bag)
-		local bagCacheSlot = bagCache[slotIndex]
-		if bagCacheSlot then
-			local itemData = SHARED_INVENTORY:GenerateSingleSlotData(bagCacheSlot.bagId, slotIndex)
+		local slotData = bagCache[slotIndex]
+		if slotData then
+			local itemData = SHARED_INVENTORY:GenerateSingleSlotData(slotData.bagId, slotIndex)
 			if itemData and self:DefaultFilterFunction(itemData) then
 				itemData.itemlink = GetItemLink(itemData.bagId, itemData.slotIndex)
 				itemData.bestGamepadItemCategoryName = ZO_InventoryUtils_Gamepad_GetBestItemCategoryDescription(itemData)
 				self.craftingInventory[bag].bagCache[itemData.slotIndex] = itemData
 			else
 				-- if item removed then remove from bagCache
-				self.craftingInventory[bag].bagCache[bagCacheSlot] = nil
+				self.craftingInventory[bag].bagCache[slotIndex] = nil
 			end
 		end
     end
+	-- self:UpdateAllCraftItems()
 end
 
 function IJA_WritHelper:GetItemData(itemId, filterFunction, bag)
