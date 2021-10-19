@@ -3,10 +3,7 @@
 -------------------------------------
 local callbackSet = false
 local oldScene = ''
-<<<<<<< HEAD
-=======
 local isGamepadMode = IJA_WRITHELPER.isGamepadMode
->>>>>>> 24e0d3fce82455052f34b6c61351b5ef86aa7008
 
 local function isIngredient(itemData) 		-- comparator
 	return itemData.itemType == ITEMTYPE_INGREDIENT
@@ -183,32 +180,20 @@ end
 
 --					-----------------------------------------------------------
 function Provisioning_Writ_Object:SetStation(isAutoCraft)
-<<<<<<< HEAD
-	local gamepadMode = IsInGamepadPreferredMode()
-=======
 --	local gamepadMode = IsInGamepadPreferredMode()
->>>>>>> 24e0d3fce82455052f34b6c61351b5ef86aa7008
 	local recipeData = self.recipeData
 	local recipeListIndex = recipeData.recipeListIndex
 	-- tab is the the list needed (food/drink)
 	local tab = (recipeListIndex <= 7 or recipeListIndex == 16) and 1 or 2
 	
-<<<<<<< HEAD
-	local sceneName = gamepadMode and "gamepad_provisioner_root" or "provisioner"
-=======
 	local sceneName = isGamepadMode and "gamepad_provisioner_root" or "provisioner"
->>>>>>> 24e0d3fce82455052f34b6c61351b5ef86aa7008
 	local provisioningScene = SCENE_MANAGER:GetScene(sceneName)
 
 	-- the callback is used to set the recipe list and recipe after station UI has finished loading
 	local function setStation(oldState, newState)
 		if newState == SCENE_SHOWING then
 		elseif newState == SCENE_SHOWN then
-<<<<<<< HEAD
-			setRecipeListToItem(recipeData, tab, gamepadMode, isAutoCraft)
-=======
 			setRecipeListToItem(recipeData, tab, isGamepadMode, isAutoCraft)
->>>>>>> 24e0d3fce82455052f34b6c61351b5ef86aa7008
 		elseif newState == SCENE_HIDDEN then
 			provisioningScene:UnregisterCallback("StateChange", setStation)
 			callbackSet = false
@@ -222,11 +207,7 @@ function Provisioning_Writ_Object:SetStation(isAutoCraft)
 	end
 	
 	if callbackSet then
-<<<<<<< HEAD
-		setRecipeListToItem(recipeData, tab, gamepadMode, isAutoCraft)
-=======
 		setRecipeListToItem(recipeData, tab, isGamepadMode, isAutoCraft)
->>>>>>> 24e0d3fce82455052f34b6c61351b5ef86aa7008
 	else
 		oldScene = sceneName
 		provisioningScene:RegisterCallback("StateChange", setStation)
@@ -252,10 +233,6 @@ function Provisioning_Writ_Object:GetIngredientData()	--------------------------
 	for ingredientIndex = 1, recipeData.numIngredients do
 		local itemLink = GetRecipeIngredientItemLink(recipeData.recipeListIndex, recipeData.recipeIndex, ingredientIndex)
 		local itemId = GetItemLinkItemId(itemLink)
-<<<<<<< HEAD
-		local itemData = self:GetItemData(itemId, isIngredient)
-		
-=======
 --		local itemData = self:GetItemData(itemId, isIngredient)
 		
 	local function comparator(itemId, itemData)
@@ -265,7 +242,6 @@ function Provisioning_Writ_Object:GetIngredientData()	--------------------------
 
 		local itemData = IJA_WRITHELPER:GetItemData(itemId, comparator, IJA_BAG_ALL)
 
->>>>>>> 24e0d3fce82455052f34b6c61351b5ef86aa7008
 		local name, icon, requiredQuantity, _, displayQuality = GetRecipeIngredientItemInfo(recipeData.recipeListIndex, recipeData.recipeIndex, ingredientIndex)
 		local ingredientCount = GetCurrentRecipeIngredientCount(recipeData.recipeListIndex, recipeData.recipeIndex, ingredientIndex)
 		

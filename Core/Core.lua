@@ -1,10 +1,7 @@
 local IJA_WritHelper = IJA_WRITHELPER
 IJA_ACTIVEWRITS = {}
 
-<<<<<<< HEAD
-=======
 local isGamepadMode = IJA_WritHelper.isGamepadMode
->>>>>>> 24e0d3fce82455052f34b6c61351b5ef86aa7008
 -------------------------------------
 -- Comparators
 -------------------------------------
@@ -12,38 +9,17 @@ function IJA_IsSmithingMaterial(itemData)
 	return itemData.itemType == ITEMTYPE_BLACKSMITHING_MATERIAL or
 		itemData.itemType == ITEMTYPE_CLOTHIER_MATERIAL or
 		itemData.itemType == ITEMTYPE_JEWELRYCRAFTING_MATERIAL or
-<<<<<<< HEAD
-		itemData.itemType == ITEMTYPE_WOODWORKING_MATERIAL 
-=======
 		itemData.itemType == ITEMTYPE_WOODWORKING_MATERIAL
->>>>>>> 24e0d3fce82455052f34b6c61351b5ef86aa7008
 end
 function IJA_IsSmithingTrait(itemData)
 	return itemData.itemType == ITEMTYPE_ARMOR_TRAIT or
 		itemData.itemType == ITEMTYPE_JEWELRY_TRAIT or
-<<<<<<< HEAD
-		itemData.itemType == ITEMTYPE_WEAPON_TRAIT 
-=======
 		itemData.itemType == ITEMTYPE_WEAPON_TRAIT
->>>>>>> 24e0d3fce82455052f34b6c61351b5ef86aa7008
 end
 function IJA_IsStyleMaterial(itemData)
 	return itemData.itemType == ITEMTYPE_STYLE_MATERIAL
 end
 function IJA_IsSmithingResult(itemData)
-<<<<<<< HEAD
-	return itemData.itemType == ITEMTYPE_ARMOR or 
-		itemData.itemType == ITEMTYPE_WEAPON
-end
-function IJA_IsSmithingRawMatierial(itemData)
-	return itemData.itemType == ITEMTYPE_BLACKSMITHING_RAW_MATERIAL or 
-	itemData.itemType == ITEMTYPE_CLOTHIER_RAW_MATERIAL or 
-	itemData.itemType == ITEMTYPE_JEWELRYCRAFTING_RAW_MATERIAL or 
-	itemData.itemType == ITEMTYPE_WOODWORKING_RAW_MATERIAL
-end
-function IJA_IsGlyph(itemData)
-	return itemData.itemType == ITEMTYPE_GLYPH_ARMOR or 
-=======
 	return itemData.itemType == ITEMTYPE_ARMOR or
 		itemData.itemType == ITEMTYPE_WEAPON
 end
@@ -55,16 +31,11 @@ function IJA_IsSmithingRawMatierial(itemData)
 end
 function IJA_IsGlyph(itemData)
 	return itemData.itemType == ITEMTYPE_GLYPH_ARMOR or
->>>>>>> 24e0d3fce82455052f34b6c61351b5ef86aa7008
 		itemData.itemType == ITEMTYPE_GLYPH_JEWELRY or
 		itemData.itemType == ITEMTYPE_GLYPH_WEAPON
 end
 function IJA_IsRune(itemData)
-<<<<<<< HEAD
-	return itemData.itemType == ITEMTYPE_ENCHANTING_RUNE_ASPECT or 
-=======
 	return itemData.itemType == ITEMTYPE_ENCHANTING_RUNE_ASPECT or
->>>>>>> 24e0d3fce82455052f34b6c61351b5ef86aa7008
 		itemData.itemType == ITEMTYPE_ENCHANTING_RUNE_ESSENCE or
 		itemData.itemType == ITEMTYPE_ENCHANTING_RUNE_POTENCY
 end
@@ -72,20 +43,12 @@ function IJA_IsIngredient(itemData)
 	return itemData.itemType == ITEMTYPE_INGREDIENT
 end
 function IJA_IsFood(itemData)
-<<<<<<< HEAD
-	return itemData.itemType == ITEMTYPE_FOOD or 
-=======
 	return itemData.itemType == ITEMTYPE_FOOD or
->>>>>>> 24e0d3fce82455052f34b6c61351b5ef86aa7008
 		itemData.itemType == ITEMTYPE_DRINK
 end
 
 IJA_Comparators = {}
-<<<<<<< HEAD
-do 
-=======
 do
->>>>>>> 24e0d3fce82455052f34b6c61351b5ef86aa7008
 	local comparators = {
 		IJA_IsSmithingMaterial,
 		IJA_IsSmithingTrait,
@@ -125,8 +88,6 @@ function IJA_insert(tble, ...)
     end
 end
 
-<<<<<<< HEAD
-=======
 do	--	IJAWH_IsPerformingCraftProcess
     local g_isCrafting = false
     CALLBACK_MANAGER:RegisterCallback("CraftingAnimationsStarted", function()
@@ -141,7 +102,6 @@ do	--	IJAWH_IsPerformingCraftProcess
     end
 end
 
->>>>>>> 24e0d3fce82455052f34b6c61351b5ef86aa7008
 -------------------------------------
 -- 
 -------------------------------------
@@ -198,11 +158,6 @@ local deconstructItems = {
 local function getDeconstructItem(craftingType)
 	return deconstructItems[craftingType]
 end
-<<<<<<< HEAD
--------------------------------------
--- Core
--------------------------------------
-=======
 
 -------------------------------------
 -- Core
@@ -216,7 +171,6 @@ local usedInConsumableCrafting = {
     [CRAFTING_TYPE_PROVISIONING]	= true
 }
 
->>>>>>> 24e0d3fce82455052f34b6c61351b5ef86aa7008
 local function GetBaseConditionInfo(questIndex, conditionIndex)
     local itemId, materialItemId, craftingType, itemFunctionalQuality = GetQuestConditionItemInfo(questIndex, QUEST_MAIN_STEP_INDEX, conditionIndex)
 --    local conditionText, current, max, isFailCondition, isComplete, isCreditShared, isVisible, conditionType = GetJournalQuestConditionInfo(questIndex, QUEST_MAIN_STEP_INDEX, conditionIndex)
@@ -268,10 +222,7 @@ function IJA_WritHelper:RefreshWritMasterList()
 
 					local itemType = GetItemLinkItemType(self:GetItemLink(itemId))
 					if smithingMaterialType[itemType] then
-<<<<<<< HEAD
-=======
 						-- refine material cerification
->>>>>>> 24e0d3fce82455052f34b6c61351b5ef86aa7008
 						conditionInfo.itemId = smithingMaterialToRaw[itemId]
 						writType = WRIT_TYPE_REFINE
 						craftType = GetItemLinkCraftingSkillType(self:GetItemLink(itemId))
@@ -317,15 +268,9 @@ function IJA_WritHelper:RefreshWritMasterList()
 					table.insert(conditionData, data)
 					craftType = CRAFTING_TYPE_CERTIFICATION
 				elseif conditionType == QUEST_CONDITION_TYPE_COLLECT_ITEM then -- 6
-<<<<<<< HEAD
-	GetBaseConditionInfo(questInfo.questIndex, conditionIndex)
-				elseif conditionType == QUEST_CONDITION_TYPE_TALK_TO then -- 6
-	GetBaseConditionInfo(questInfo.questIndex, conditionIndex)
-=======
 GetBaseConditionInfo(questInfo.questIndex, conditionIndex)
 				elseif conditionType == QUEST_CONDITION_TYPE_TALK_TO then -- 9
 GetBaseConditionInfo(questInfo.questIndex, conditionIndex)
->>>>>>> 24e0d3fce82455052f34b6c61351b5ef86aa7008
 					craftType = CRAFTING_TYPE_CERTIFICATION
 				elseif conditionType == 0 then
 					local conditionInfo = GetBaseConditionInfo(questInfo.questIndex, 0)
@@ -387,22 +332,6 @@ function IJA_WritHelper:RefreshQuestList()
 	self:UpdateDynamicEvents()
 end
 
-<<<<<<< HEAD
-function IJA_WritHelper:CycleActiveQuests()--------------------------
-	-- cycle writs for station
-	local craftingType = GetCraftingInteractionType()
-	self.currentWritIndex = self.currentWritIndex + 1
-	
-	if self.currentWritIndex > #self.writData[craftingType] then
-		self.currentWritIndex = DEFAULT_DISPLAYED_QUEST_INDEX
-	end
-	
-	self.currentWrit = self.writData[craftingType][self.currentWritIndex]
-	if self.currentWrit == nil then return end
-	self.currentWrit:OnCraftingStation()
-end
-
-=======
 function IJA_WritHelper:UpdateWrits()
 	IJA_ACTIVEWRITS = {}
 	for craftingType, stationWrits in pairs(self.writData) do
@@ -465,7 +394,6 @@ end
 -------------------------------------
 -- 
 -------------------------------------
->>>>>>> 24e0d3fce82455052f34b6c61351b5ef86aa7008
 local function getZOSMasterListIndex(questIndex)
 	for index, questInfo in pairs(CRAFT_ADVISOR_MANAGER.questMasterList) do
 		if questInfo.questIndex == questIndex then
@@ -483,19 +411,13 @@ local function setWritAdviserToSelectedWrit()
 	end
 	
 	if questIndex ~= 0 and questIndex ~= IJA_WRITHELPER.selectedQuestIndex then
-<<<<<<< HEAD
-		if IsInGamepadPreferredMode() then
-=======
 		if isGamepadMode then
->>>>>>> 24e0d3fce82455052f34b6c61351b5ef86aa7008
 			ZO_WRIT_ADVISOR_GAMEPAD:CycleActiveQuest()
 		else
 		end
 	end
 end
 
-<<<<<<< HEAD
-=======
 function IJA_WritHelper:CycleActiveQuests()--------------------------
 	-- cycle writs for station
 	local craftingType = GetCraftingInteractionType()
@@ -510,7 +432,6 @@ function IJA_WritHelper:CycleActiveQuests()--------------------------
 	self.currentWrit:OnCraftingStation()
 end
 
->>>>>>> 24e0d3fce82455052f34b6c61351b5ef86aa7008
 function IJA_WritHelper:GetWritForStation(craftingType)
 	local stationWrits = self.writData[craftingType]
 	
@@ -528,13 +449,6 @@ function IJA_WritHelper:GetWritForStation(craftingType)
 	return
 end
 
-<<<<<<< HEAD
-function IJA_WritHelper:GetCurrentWrit()
-	return self.currentWrit
-end
-
-=======
->>>>>>> 24e0d3fce82455052f34b6c61351b5ef86aa7008
 function IJA_WritHelper:GetWritByQuestIndex(questIndex)
 	for craftingType, stationWrits in pairs(self.writData) do
 		for qIndex, writObject in pairs(stationWrits) do
@@ -556,13 +470,10 @@ function IJA_WritHelper:RemoveWritByQuestIndex(questIndex)
 	end
 end
 
-<<<<<<< HEAD
-=======
 function IJA_WritHelper:GetCurrentWrit()
 	return self.currentWrit
 end
 
->>>>>>> 24e0d3fce82455052f34b6c61351b5ef86aa7008
 function IJA_WritHelper:IsCrafting()
 	-- used for auto crafting. this includes crafting consecutive items using manual crafting or if auto-craft is enabled
 	return self.isCrafting
@@ -593,24 +504,18 @@ function IJA_WritHelper:CleanUp()
 	self.writMasterList = {}
 end
 
-<<<<<<< HEAD
-=======
 -------------------------------------
 -- 
 -------------------------------------
->>>>>>> 24e0d3fce82455052f34b6c61351b5ef86aa7008
 function IJA_WritHelper:GetJournalQuestNumConditions(journalQuestIndex, stepIndex)
 	-- needed for when numConditions == 0 so the writ can pass thru "for" loops
 	local numConditions = GetJournalQuestNumConditions(journalQuestIndex, stepIndex)
 	return (numConditions > 0 and numConditions or 1)
 end
 
-<<<<<<< HEAD
-=======
 -------------------------------------
 -- 
 -------------------------------------
->>>>>>> 24e0d3fce82455052f34b6c61351b5ef86aa7008
 function IJA_WritHelper:MapItemIdToDataMap(object)
     self.itemIdToDataMap[object.itemId] = object
 end
@@ -620,12 +525,6 @@ function IJA_WritHelper:MapQuestIndexToDataMap(object)
 end
 
 -------------------------------------
-<<<<<<< HEAD
-function IJA_WritHelper:GetBagAndSlot(itemData)----------------------
-	return itemData.bagId, itemData.slotIndex
-end
-
-=======
 -- Bag Cache
 -------------------------------------
 function IJA_WritHelper:GetOrCreateBagCache(bag)
@@ -731,7 +630,6 @@ end
 -------------------------------------
 -- Item Link Functions
 -------------------------------------
->>>>>>> 24e0d3fce82455052f34b6c61351b5ef86aa7008
 function IJA_WritHelper:GetItemLink(itemId, subType, level, styleId, potData)
     local subType 	= subType 	and subType or "30"
     local level 	= level 	and level 	or "1"
@@ -749,19 +647,9 @@ end
 
 function IJA_WritHelper:GetItemLinkEncodedData(itemLink)
     local itemComboId, setId, crafted, encodedAlchemyTraits = itemLink:match('|H%d:item:(%d+:%d+:%d+:%d+:)[%d:]+(%d+):(%d+):%d+:%d+:(%d+)|h|h')
-<<<<<<< HEAD
- --   itemComboId = itemComboId:gsub('%:', '') .. setId
---	return itemComboId, setId, crafted, encodedAlchemyTraits
-	return itemComboId, encodedAlchemyTraits
-end
-
-function IJA_WritHelper:IsItemCrafted(itemId)-----------------
-    return self.craftedItems[itemId]
-=======
     itemComboId = itemComboId:gsub('%:', '') .. setId
 --	return itemComboId, setId, crafted, encodedAlchemyTraits
 	return tonumber(itemComboId), tonumber(encodedAlchemyTraits)
->>>>>>> 24e0d3fce82455052f34b6c61351b5ef86aa7008
 end
 
 math.randomseed( os.time() )  -- Seed the pseudo-random number generator
@@ -798,57 +686,8 @@ function IJA_WritHelper:CompareEncoadedAlchemyTraits(encodedAlchemyTraits, writ_
     return matches
 end
 
-<<<<<<< HEAD
-do
-    local g_isCrafting = false
-    CALLBACK_MANAGER:RegisterCallback("CraftingAnimationsStarted", function()
-        g_isCrafting = true
-    end)
-    CALLBACK_MANAGER:RegisterCallback("CraftingAnimationsStopped", function()
-        g_isCrafting = false
-    end)
-	
-    function IJAWH_IsPerformingCraftProcess()
-        return g_isCrafting
-    end
-end
-
--------------------------------------
-function IJA_WritHelper:UpdateWrits()
-	IJA_ACTIVEWRITS = {}
-	for craftingType, stationWrits in pairs(self.writData) do
-		for questIndex, writObject in pairs(stationWrits) do
-			writObject:Update()
-		end
-		IJA_ACTIVEWRITS[craftingType] = true
-	end
-	self:RefreshQuestList()
-end
-
-function IJA_WritHelper:RefreshSingleWrit(questIndex)
-	local writ_Object = self.questIndexToDataMap[questIndex]
-	
-	if writ_Object then
-		writ_Object:Update()
-	end
-end
-
-function IJA_WritHelper:Destroy(object)
-	if object.questIndex  then
-		local craftingType, questIndex = object.craftingType, object.questIndex
-		self.writData[craftingType][questIndex] = nil
-		if NonContiguousCount(self.writData[craftingType]) == 0 then
-			self.writData[craftingType] = nil
-		end
-	else
- 	   object = nil
-	end
-end
-
-=======
 -------------------------------------
 -- Keybinds
->>>>>>> 24e0d3fce82455052f34b6c61351b5ef86aa7008
 -------------------------------------
 function IJA_WritHelper:InitializeKeybindStripDescriptors()
     self.resetWritKeybindStripDescriptor =
@@ -926,8 +765,6 @@ function IJA_WritHelper_CraftItems:Reset()
     self.usedIn = nil
     self.required = nil
 end
-<<<<<<< HEAD
-=======
 
 --	/script SHARED_INVENTORY:FireCallbacks("SingleSlotInventoryUpdate")
 --	/script d(IJA_WRITHELPER.writInventory[1].bagId)
@@ -937,4 +774,3 @@ end
 -------------------------------------
 -- 
 -------------------------------------
->>>>>>> 24e0d3fce82455052f34b6c61351b5ef86aa7008

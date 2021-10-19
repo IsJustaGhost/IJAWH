@@ -4,17 +4,6 @@
 local strings = {
 SI_IJAWH_NOTENOUGH              = "Ihr habt nicht genügend <<1>>.", --  "You do not have enough
 
-<<<<<<< HEAD
-SI_IJAWH_CHATTEROPTION1			= "Die Schmiedeschriebe betrachten", -- "Examine the Blacksmith Writs"
-SI_IJAWH_CHATTEROPTION2			= "Die Schneiderschriebe betrachten", -- "Examine the Clothier Writs"
-SI_IJAWH_CHATTEROPTION3			= "Die Verzaubererschriebe betrachten", -- "Examine the Enchanter Writs"
-SI_IJAWH_CHATTEROPTION4			= "Die Alchemistenschriebe betrachten", -- "Examine the Alchemist Writs"
-SI_IJAWH_CHATTEROPTION5			= "Die Versorgerschriebe betrachten", -- "Examine the Provisioner Writs"
-SI_IJAWH_CHATTEROPTION6			= "Die Schreinerschriebe betrachten", -- "Examine the Woodworker Writs"
-SI_IJAWH_CHATTEROPTION7			= "Die Schmuckhandwerksschriebe betrachten", -- "Examine the Jewelry Crafting Writs"
-SI_IJAWH_CHATTEROPTION8			= "Ich habe sie.", -- "I've got them right here"
-SI_IJAWH_CHATTEROPTION9 		= "Die Waren in die Kiste legen", -- "Place the goods within the crate."
-=======
 SI_IJAWH_CHATTEROPTION1			= "<Die Schmiedeschriebe betrachten.>", -- "Examine the Blacksmith Writs"
 SI_IJAWH_CHATTEROPTION2			= "<Die Schneiderschriebe betrachten.>", -- "Examine the Clothier Writs"
 SI_IJAWH_CHATTEROPTION3			= "<Die Verzaubererschriebe betrachten.>", -- "Examine the Enchanter Writs"
@@ -25,7 +14,6 @@ SI_IJAWH_CHATTEROPTION7			= "<Die Schmuckhandwerksschriebe betrachten.>", -- "Ex
 
 SI_IJAWH_CHATTEROPTION8			= "Ich habe sie.", -- "I've got them right here"
 SI_IJAWH_CHATTEROPTION9 		= "<Die Waren in die Kiste legen.>", -- "Place the goods within the crate."
->>>>>>> 24e0d3fce82455052f34b6c61351b5ef86aa7008
 SI_IJAWH_CHATTEROPTION10		= "Das Manifest unterschreiben", -- "Sign the Manifest"
 SI_IJAWH_CHATTEROPTION11		= "Quest abschlißen", -- "finished the job"
 

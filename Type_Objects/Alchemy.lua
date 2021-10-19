@@ -1,10 +1,7 @@
 -------------------------------------
 -- Alchemy
 -------------------------------------
-<<<<<<< HEAD
-=======
 local isGamepadMode = IJA_WRITHELPER.isGamepadMode
->>>>>>> 24e0d3fce82455052f34b6c61351b5ef86aa7008
 local Alchemy_Writ_Object = IJA_WritHelper_Shared_Writ_Object:Subclass()
 
 function Alchemy_Writ_Object:GetRecipeData(conditionInfo)
@@ -27,38 +24,23 @@ function Alchemy_Writ_Object:GetRecipeData(conditionInfo)
 	local resultType = conditionInfo.isPoison and 2 or 1
 	local solventData = self:GetSolventForWrit()
 	
-<<<<<<< HEAD
-=======
 	if not solventData then return end
->>>>>>> 24e0d3fce82455052f34b6c61351b5ef86aa7008
 	local recipeData = {
 		["solventData"] = solventData,
 		["traitIds"]	= traitIds,
 		["type"]		= resultType,
 	}
 	
-<<<<<<< HEAD
-	local itemLink = self:GetItemLink(itemId)
-	self.comparator	= self:GetComparator(itemLink)
-	
-	local function OnScanComplete(data)
-		self.alchemyRecipeData = data[1]
-=======
 	local function OnScanComplete(data)
 		self.alchemyRecipeData = data[1]
 		self.alchemyRecipeData.solventData = solventData
->>>>>>> 24e0d3fce82455052f34b6c61351b5ef86aa7008
 		CALLBACK_MANAGER:FireCallbacks("IJA_WritHelper_Update_Writs_Panel")
 	end
 
 	self:GetAlchemyRecipes(resultType, traitIds, solventData, OnScanComplete)
-<<<<<<< HEAD
-	return recipeData, itemId, self:GetItemLink(itemId)
-=======
 
 	local itemLink = self:GetResultItemLink(recipeData)
 	return recipeData, itemId, itemLink
->>>>>>> 24e0d3fce82455052f34b6c61351b5ef86aa7008
 end
 
 function Alchemy_Writ_Object:AutoCraft()
@@ -67,28 +49,16 @@ function Alchemy_Writ_Object:AutoCraft()
 	local maxIterations, craftingResult = GetMaxIterationsPossibleForAlchemyItem(solventBagId, solventSlotIndex, reacgent1BagId, reacgent1Slot, reacgent2BagId, reacgent2Slot, reacgent3BagId, reacgent3Slot)
 	local numIterations = self:GetRequiredIterations()
 	-- numIterations = no more than the maximum amount that can be crafted
-<<<<<<< HEAD
-	numIterations = maxIterations < numIterations and maxIterations or numIterations
-	if maxIterations >= numIterations then
-		zo_callLater(function()
-=======
 		numIterations = maxIterations < numIterations and maxIterations or numIterations
 	if maxIterations >= numIterations then
 		zo_callLater(function()
 --d( solventBagId, solventSlotIndex, reacgent1BagId, reacgent1Slot, reacgent2BagId, reacgent2Slot, reacgent3BagId, reacgent3Slot)
->>>>>>> 24e0d3fce82455052f34b6c61351b5ef86aa7008
 --			CraftAlchemyItem(solventBagId, solventSlotIndex, reacgent1BagId, reacgent1Slot, reacgent2BagId, reacgent2Slot, reacgent3BagId, reacgent3Slot, numIterations)
 			self:TryCraftItem(CraftAlchemyItem, solventBagId, solventSlotIndex, reacgent1BagId, reacgent1Slot, reacgent2BagId, reacgent2Slot, reacgent3BagId, reacgent3Slot, numIterations)
 		end, 100)
 	else
 		ZO_Alert(UI_ALERT_CATEGORY_ERROR, SOUNDS.NEGATIVE_CLICK, GetString("SI_TRADESKILLRESULT", craftingResult))
 	end
-<<<<<<< HEAD
-		
---	local recipeData = self:GetAlchemyRecipeData()
---	self:RefreshAlchemyRecipeList(recipeData)
-=======
->>>>>>> 24e0d3fce82455052f34b6c61351b5ef86aa7008
 end
 
 function Alchemy_Writ_Object:GetPerIteration()
@@ -155,10 +125,7 @@ function Alchemy_Writ_Object:SetStation()
 		local function OnScanComplete(data)
 			if data == nil then d( 'no recipe data') return end
 			self.alchemyRecipeData = data[1]
-<<<<<<< HEAD
-=======
 			self.alchemyRecipeData.solventData = solventData
->>>>>>> 24e0d3fce82455052f34b6c61351b5ef86aa7008
 		end
 
 		self:GetAlchemyRecipes(resultType, traitIds, solventData, OnScanComplete)
@@ -170,11 +137,7 @@ end
 
 function Alchemy_Writ_Object:SelectMode()
 	if SCENE_MANAGER:GetPreviousSceneName() == 'hud' then
-<<<<<<< HEAD
-		if IsInGamepadPreferredMode() then
-=======
 		if isGamepadMode then
->>>>>>> 24e0d3fce82455052f34b6c61351b5ef86aa7008
 			if IsJustaEasyAlchemy then
 				SCENE_MANAGER:Push("ija_gamepad_alchemy_creation")
 			else
@@ -187,11 +150,7 @@ function Alchemy_Writ_Object:SelectMode()
 end
 
 function Alchemy_Writ_Object:GetTooltipData(recipeData)
-<<<<<<< HEAD
-	return recipeData.type, recipeData.traitIds, recipeData.solventData.itemId
-=======
 	return recipeData.traitIds, recipeData.solventData.itemId
->>>>>>> 24e0d3fce82455052f34b6c61351b5ef86aa7008
 end
 
 function Alchemy_Writ_Object:GetScanData()
@@ -201,45 +160,6 @@ end
 function Alchemy_Writ_Object:GetSolventForWrit()
 	local conditionInfo = self.conditionInfo
 	
-<<<<<<< HEAD
-    for _, data in pairs(self:GetItemList(IJA_IsAlchemySolvent)) do
-		--If this is a valid solvent for the item and material id, then add it to the list of potential solvents
-		if conditionInfo.itemId and conditionInfo.materialItemId and IsAlchemySolventForItemAndMaterialId(data.bagId, data.slotIndex, conditionInfo.itemId, conditionInfo.materialItemId) then
-			
-			local itemLink = GetItemLink(data.bagId, data.slotIndex)
-			local icon, _, meetsUsageRequirement = GetItemLinkInfo(itemLink)
-				
-			local itemData = {
-				name = data.name,
-				itemId = GetItemId(data.bagId, data.slotIndex),
-				bagId = data.bagId,
-				slotIndex = data.slotIndex,
-				
-				itemType = data.itemType,
-				
-				stackCount = data.stackCount or 0,
-				sellPrice = data.sellPrice,
-				
-				itemLink = itemLink,
-				icon = icon,
-				meetsUsageRequirement = meetsUsageRequirement or false,
-			}
-				
-			return itemData
-		end
-    end
-end
-
-function Alchemy_Writ_Object:GetMaxIterations()
-	local maxIterations, craftingResult = GetMaxIterationsPossibleForAlchemyItem(self:GetAllCraftingBagAndSlots())
-	return maxIterations, craftingResult
-end
-
-function Alchemy_Writ_Object:GetAllCraftingBagAndSlots()
-	local zo_Object = IsInGamepadPreferredMode() and GAMEPAD_ALCHEMY or ALCHEMY
-	
-	local solventBagId, solventSlotIndex, reacgent1BagId, reacgent1Slot, reacgent2BagId, reacgent2Slot, reacgent3BagId, reacgent3Slot = zo_Object:GetAllCraftingBagAndSlots()
-=======
 	local list = self:GetAlchemyItems()
 	if list then
 		for _, data in pairs(list) do
@@ -283,18 +203,13 @@ function Alchemy_Writ_Object:GetAllCraftingBagAndSlots(checkCraftingSlots)
 	if checkCraftingSlots then
 		solventBagId, solventSlotIndex, reacgent1BagId, reacgent1Slot, reacgent2BagId, reacgent2Slot, reacgent3BagId, reacgent3Slot = zo_Object:GetAllCraftingBagAndSlots()
 	end
->>>>>>> 24e0d3fce82455052f34b6c61351b5ef86aa7008
 	
 	if solventSlotIndex == nil or reacgent1Slot == nil or reacgent2Slot == nil then
 		local recipeData = self.alchemyRecipeData
 		if recipeData == nil then return end
 		
 		local solventData, reagentData_1, reagentData_2, reagentData_3 = recipeData.solventData, recipeData.reagents[1], recipeData.reagents[2], recipeData.reagents[3]
-<<<<<<< HEAD
-
-=======
 --d( '--	-', solventData, reagentData_1, reagentData_2, reagentData_3)
->>>>>>> 24e0d3fce82455052f34b6c61351b5ef86aa7008
 		if solventData and reagentData_1 and reagentData_2 then
 			solventBagId, solventSlotIndex = ZO_Inventory_GetBagAndIndex(solventData)
 			reacgent1BagId, reacgent1Slot = ZO_Inventory_GetBagAndIndex(reagentData_1)
@@ -307,28 +222,17 @@ function Alchemy_Writ_Object:GetAllCraftingBagAndSlots(checkCraftingSlots)
 		end
 	end
 	
-<<<<<<< HEAD
---	d( solventBagId, solventSlotIndex, reacgent1BagId, reacgent1Slot, reacgent2BagId, reacgent2Slot, reacgent3BagId, reacgent3Slot)
-	return solventBagId, solventSlotIndex, reacgent1BagId, reacgent1Slot, reacgent2BagId, reacgent2Slot, reacgent3BagId, reacgent3Slot
-end
-
-function Alchemy_Writ_Object:GetResultItemLink()
-	local recipeData = self.recipeData
-=======
 	return solventBagId, solventSlotIndex, reacgent1BagId, reacgent1Slot, reacgent2BagId, reacgent2Slot, reacgent3BagId, reacgent3Slot
 end
 
 function Alchemy_Writ_Object:GetResultItemLink(recipeData)
 	local recipeData = recipeData ~= nil and recipeData or self.recipeData
->>>>>>> 24e0d3fce82455052f34b6c61351b5ef86aa7008
 	return self:GetAlchemyResultLink(self:GetTooltipData(recipeData))
 end
 
 IJA_WritHelper_Alchemy_Object = Alchemy_Writ_Object
 
 
-<<<<<<< HEAD
-=======
 --[[
 	
 function Smithing_Writ_Object:GetLinkLevel(recipeData)
@@ -356,4 +260,3 @@ function Smithing_Writ_Object:UpdateLinkLevel(itemLink, recipeData)
 	return itemLink:gsub(linkString, '%1' .. linkLevel  .. '%2')
 end
 ]]
->>>>>>> 24e0d3fce82455052f34b6c61351b5ef86aa7008

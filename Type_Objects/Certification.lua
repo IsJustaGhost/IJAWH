@@ -12,9 +12,5 @@ IJA_WritHelper_Certification_Object = Certification_Writ_Object
 
 --[[
     self:TryCraftItem(CraftEnchantingItem, )
-<<<<<<< HEAD
-
-=======
 fff
->>>>>>> 24e0d3fce82455052f34b6c61351b5ef86aa7008
 ]]

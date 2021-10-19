@@ -48,15 +48,9 @@ end
 
 function RecipeData_Object:Build(conditionInfo)
 	local function setDefaultData(itemId, itemLink)
-<<<<<<< HEAD
-		self.itemId = itemId
-		self.itemLink = self:MakeLinkCrafted(itemLink or self:GetItemLink(self.itemId))
-		self.comparator = self:GetComparator(self.itemLink)
-=======
 		local itemLink = itemLink or self:GetItemLink(self.itemId)
 		self.itemId = itemId
 		self.itemLink = self:MakeLinkCrafted(itemLink)
->>>>>>> 24e0d3fce82455052f34b6c61351b5ef86aa7008
 		IJA_WRITHELPER:MapItemIdToDataMap(self)
 	end
 	
@@ -106,19 +100,6 @@ function RecipeData_Object:CanCraft()
 	end
 end
 
-<<<<<<< HEAD
-function RecipeData_Object:GetComparator(itemLink)
-	local itemType, specializedItemType = GetItemLinkItemType(itemLink)
-
-	for k, comparator in pairs(IJA_Comparators) do
-		if comparator({itemType = itemType}) then 
-			return comparator
-		end
-	end
-end
-
-=======
->>>>>>> 24e0d3fce82455052f34b6c61351b5ef86aa7008
 function RecipeData_Object:GetCompleted()
 	return self:GetRequiredIterations() == 0
 end
@@ -219,15 +200,11 @@ end
 
 function RecipeData_Object:GetRefineItemResult()
 	-- has enough raw material
-<<<<<<< HEAD
-	local itemData = self:GetItemData(self.itemId, IJA_IsSmithingRawMatierial)
-=======
 	local function comparator(itemId, itemData)
 		if itemId == GetItemId(itemData.bagId, itemData.slotIndex) then return false end
 		return ZO_SharedSmithingExtraction_IsRefinableItem(itemData.bagId, itemData.slotIndex)
 	end
 	local itemData = IJA_WRITHELPER:GetItemData(self.itemId, comparator, IJA_BAG_ALL)
->>>>>>> 24e0d3fce82455052f34b6c61351b5ef86aa7008
 	local stackCount = itemData ~= nil and itemData.stackCount or 0
 	if stackCount < GetRequiredSmithingRefinementStackSize() then
 		return GetString(SI_TRADESKILLRESULT72) --"You do not have enough to refine", -- SI_TRADESKILLRESULT72
@@ -236,11 +213,6 @@ end
 
 function RecipeData_Object:GetDeconItemResult()
 	-- has item needed to decon
-<<<<<<< HEAD
-	local itemData = self:GetItemData(self.itemId, IJA_IsSmithingResult)
-	local stackCount = itemData ~= nil and itemData.stackCount or 0
---	local itemLink = self:GetItemLink(self.itemId)
-=======
 	local function comparator(itemId, itemData)
 		if itemId == GetItemId(itemData.bagId, itemData.slotIndex) then return false end
 
@@ -251,7 +223,6 @@ function RecipeData_Object:GetDeconItemResult()
 	local itemData = IJA_WRITHELPER:GetItemData(self.itemId, comparator, IJA_BAG_BACKPACK)
 	
 	local stackCount = itemData ~= nil and itemData.stackCount or 0
->>>>>>> 24e0d3fce82455052f34b6c61351b5ef86aa7008
 	local itemEncodedLinkData = self:GetItemLinkEncodedData(itemData.itemLink)
 	local writEncodedLinkData = self:GetItemLinkEncodedData(self.itemLink)
 
@@ -320,13 +291,6 @@ function RecipeData_Object:GetMissingCraftItemStrings()
     local craftItems = self:GetAllCraftItemsUsed()
     local missingStrings = {}
 	for _, itemInfo in pairs(craftItems) do
-<<<<<<< HEAD
-        local itemLink = self:GetItemLink(itemInfo.itemId)
-        local comparator = self:GetComparator(itemLink)
-        local stackCount = self:GetItemData(itemInfo.itemId, comparator).stackCount
-    
-        if itemInfo.required < stackCount then
-=======
 		local function comparator(itemId, itemData)
 			return itemId == GetItemId(itemData.bagId, itemData.slotIndex)
 		end
@@ -336,7 +300,6 @@ function RecipeData_Object:GetMissingCraftItemStrings()
     
         if itemInfo.required < stackCount then
 			local itemLink = self:GetItemLink(itemInfo.itemId)
->>>>>>> 24e0d3fce82455052f34b6c61351b5ef86aa7008
             table.insert(missingStrings, zo_strformat(GetString(SI_STATS_EQUIPMENT_BONUS_TOOLTIP_EMPTY_SLOT), itemLink))
         end
         return missingStrings
@@ -386,11 +349,7 @@ end
 function RecipeData_Object:SearchBank()
 	local condition ,current, maximum = self:GetConditionAndCounts()
 	if current ~= maximum then
-<<<<<<< HEAD
-		local bagId, slotIndex = self:GetBankBagAndSlot(self.itemId, self.itemLink, self.comparator, self.isMaterWrit)
-=======
 		local bagId, slotIndex = self:GetBankBagAndSlot(self.itemId, self.itemLink, self.isMaterWrit)
->>>>>>> 24e0d3fce82455052f34b6c61351b5ef86aa7008
 		
 		if bagId then
 			local amountRequired, bankCount = getAmmoutRequired(current, maximum, GetItemLinkStacks(self.itemLink))
@@ -640,13 +599,6 @@ end
 -------------------------------------
 -- 
 -------------------------------------
-<<<<<<< HEAD
-function Shared_Writ_Object:GetItemList(comparator)
-	return SHARED_INVENTORY:GenerateFullSlotData(comparator, BAG_VIRTUAL,BAG_BACKPACK,BAG_BANK, BAG_SUBSCRIBER_BANK)
-end
-
-=======
->>>>>>> 24e0d3fce82455052f34b6c61351b5ef86aa7008
 function Shared_Writ_Object:AddMaterialCounts(matName,  stackCount)
 	local curCount = self.materialCount[matName] or 0
 	self.materialCount[matName] = curCount + stackCount
@@ -756,13 +708,6 @@ function Shared_Writ_Object:UpdatePanelData()
 end
 
 --	Placeholders	-----------------------------------------------------------
-<<<<<<< HEAD
-function Shared_Writ_Object:GetComparator()
-    -- intended to be overwritten
-end
-
-=======
->>>>>>> 24e0d3fce82455052f34b6c61351b5ef86aa7008
 function Shared_Writ_Object:BuildImprovementData()
     -- intended to be overwritten
 	-- generates the data needed for each item needed to be crafted
