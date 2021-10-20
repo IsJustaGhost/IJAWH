@@ -146,16 +146,13 @@ function Provisioning_Writ_Object:GetMissingMessage()
 		for ingredientIndex=1, numIngredients do
 			local itemLink = GetRecipeIngredientItemLink(recipeListIndex,  recipeIndex, ingredientIndex)
             local requiredQuantity = select(3, GetRecipeIngredientItemInfo(recipeListIndex, recipeIndex, ingredientIndex))
-            self:UpdateCraftItems(GetItemLinkItemId(itemLink), requiredQuantity)
+            IJA_WRITHELPER:AddCraftItemUsed(GetItemLinkItemId(itemLink), self.conditionId, requiredQuantity)
 		end
 		
 	else
 		table.insert(missingMessage, GetString(SI_TRADESKILLRESULT100)) --  "Recipe Unknown"
 	end
 	
-		local missingCraftItemStrings = self:GetMissingCraftItemStrings()
-		IJA_insert(missingMessage, missingCraftItemStrings)
-
 	if #missingMessage == 0 then
 		-- used if no other definded reson was true
 		local maxIterations, limitReason = self:GetMaxIterations()

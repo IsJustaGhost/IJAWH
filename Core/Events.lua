@@ -7,7 +7,8 @@ local function updateQuestList()
 		-- update list when returned to hud
 		if SCENE_MANAGER:GetCurrentScene():GetName() == 'hud' and not runOnce then
 			EVENT_MANAGER:UnregisterForUpdate("IJAWH_UpdateQuestList")
-			CALLBACK_MANAGER:FireCallbacks("IJA_WritHelper_Update_Writs_Panel")
+	--		CALLBACK_MANAGER:FireCallbacks("IJA_WritHelper_Update_Writs_Panel")
+			IJA_WRITHELPER:UpdateWrits()
 			runOnce = true
 		end
 	end
@@ -765,7 +766,7 @@ function IJA_WritHelper:InitQuestEvents()
 					self.control:RegisterForEvent(EVENT_CHATTER_END, onChatterEnd)
 					if self.savedVars.autoAccept then
 						if GetNumJournalQuests() < MAX_JOURNAL_QUESTS then
-		--					autoAccept()
+							autoAccept()
 						else
 							ZO_Alert(SOUNDS.NEGATIVE_CLICK, GetString(SI_MARKETPURCHASABLERESULT31))
 						end

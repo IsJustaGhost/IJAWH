@@ -72,10 +72,15 @@
 						<Backdrop name="$(parent)BG" inherits="ZO_DefaultBackdrop" alpha="0.5">
 							<AnchorFill/>
 						</Backdrop>
-						<Label name="$(parent)Header" excludeFromResizeToFitExtents="true" font="ZoFontWinH2" mouseEnabled="true" horizontalAlignment="CENTER" text="">
+						<Label name="$(parent)Header" layer="CONTROLS" tier="LOW" excludeFromResizeToFitExtents="true" font="ZoFontWinH2" mouseEnabled="true" horizontalAlignment="CENTER" text="">
 							<Anchor point="TOPLEFT" relativeTo="$(parent)Container" offsetX="0" offsetY="5"/>
 							<Anchor point="TOPRIGHT" relativeTo="$(parent)Container" offsetX="0" offsetY="5"/>
 							<OnMouseEnter> self:SetHeaderColor(self, "OnMouseEnter") </OnMouseEnter>
+							<Controls>
+								<Texture name="$(parent)ItemsIcon" layer="OVERLAY" tier="HIGH" excludeFromResizeToFitExtents="true">
+									<Anchor point="TOPRIGHT" relativeTo="$(parent)Header" relativePoint="TOPRIGHT" offsetX="-5" offsetY="-2"/>
+								</Texture>
+							</Controls>
 						</Label>
 						<Texture name="$(parent)Divider" excludeFromResizeToFitExtents="true" textureFile="/esoui/art/windows/gamepad/gp_nav2_journal_hordivider.dds">
 							<Dimensions y="8"/>

@@ -222,9 +222,6 @@ function Enchanting_Writ_Object:GetRecipeData(conditionInfo)
 	local itemId = conditionInfo.itemId
 	local potencyRune, essenceRune, aspectRune = self:GetRunesForItemId(itemId, conditionInfo.materialItemId, conditionInfo.itemFunctionalQuality)
 
-	local itemLink = self:GetItemLink(itemId)
-	self.comparator	= self:GetComparator(itemLink)
-	
 	conditionInfo.potencyRune = potencyRune
 	conditionInfo.essenceRune = essenceRune
 	conditionInfo.aspectRune = aspectRune
@@ -305,27 +302,15 @@ function Enchanting_Writ_Object:GetMissingMessage()
 	local missingMessage = {}
 	local conditionInfo = self.conditionInfo
 	
-	if not DoesPlayerHaveRunesForEnchanting(conditionInfo.aspectRune, conditionInfo.essenceRune, conditionInfo.potencyRune) then
-		local rune1BagId, rune1SlotIndex, rune2BagId, rune2SlotIndex, rune3BagId, rune3SlotIndex = self:GetAllCraftingBagAndSlots()
-		if not rune1SlotIndex then
-			table.insert(missingMessage, missingRune(self:GetItemLink(conditionInfo.potencyRune)))
-			
-		end
-		if not rune2SlotIndex then
-			table.insert(missingMessage, missingRune(self:GetItemLink(conditionInfo.essenceRune)))
-            
-		end		
-		if not rune3SlotIndex then
-			table.insert(missingMessage, missingRune(self:GetItemLink(conditionInfo.aspectRune)))
-            
-		end
-	else
-		
-		local maxIterations, limitReason = self:GetMaxIterations()
-		local numIterations = self:GetRequiredIterations()
-		if numIterations > maxIterations then
-			table.insert(missingMessage, GetString("SI_TRADESKILLRESULT", limitReason))
-		end
+	local numIterations = self:GetRequiredIterations()
+	IJA_WRITHELPER:AddCraftItemUsed(conditionInfo.potencyRune, self.conditionId, numIterations)
+	IJA_WRITHELPER:AddCraftItemUsed(conditionInfo.essenceRune, self.conditionId, numIterations)
+	IJA_WRITHELPER:AddCraftItemUsed(conditionInfo.aspectRune, self.conditionId, numIterations)
+
+	local maxIterations, limitReason = self:GetMaxIterations()
+	
+	if numIterations > maxIterations then
+		table.insert(missingMessage, GetString("SI_TRADESKILLRESULT", limitReason))
 	end
 	
 	return missingMessage

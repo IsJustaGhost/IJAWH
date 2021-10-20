@@ -108,6 +108,7 @@ function IJA_WritPanel:Initialize(owner, control)
 	self.savedVars = owner.savedVars
 	local container = control:GetNamedChild("Container")
 	control.header = container:GetNamedChild("Header")
+	control.itemsIcon = control.header:GetNamedChild("ItemsIcon")
 	control.container = container
 	self.control = control
 	self.control:SetHidden(true)
@@ -239,6 +240,53 @@ function IJA_WritPanel:AddListDataTypes()
 	ZO_ScrollList_AddDataType(self.writs, LIST_TYPE, "IJA_WritHelper_WritPanelTemplate", nil, function(rowControl, data) setupRow(rowControl, data) end)
 end
 
+function IJA_WritPanel:UpdateCraftItemsIcon(itemsIcon, iconSize)
+    local tooltipText = {}
+	local setNoticeIcon = false
+
+    local function addEntry(craftingItem, iconSize)
+        if NonContiguousCount(craftingItem.usedIn) == 0 then return end
+        local name = craftingItem.name
+        local required = craftingItem.required
+        local stackCount = craftingItem.stackCount
+
+    --    if tooltipText ~= '' then tooltipText = tooltipText .. '\n' end
+
+		
+	--[[
+        local itemString = string.format("%-50s(%s/%s)", name, required, stackCount)
+	]]
+		
+		local spacing = string.len(name) + string.len(tostring(stackCount))
+		spacing = '%-' .. spacing - 60 .. 's'
+	
+        local itemString = string.format(spacing .. "(%s/%s)", name, required, stackCount)
+		
+        if required > stackCount then
+            itemString = COLOR_NOTICE:Colorize(itemString)
+            setNoticeIcon = true
+        end
+   --     tooltipText = tooltipText .. itemString
+		table.insert(tooltipText, itemString)
+    end
+
+    local craftingItems = IJA_WRITHELPER.craftingItems
+    for k, craftingItem in pairs(craftingItems) do
+        -- include only items currently set to be used in crafting an item
+        if NonContiguousCount(craftingItem.usedIn) > 0 then
+          addEntry(craftingItem)
+        end
+    end
+    
+    local texture = '/esoui/art/tutorial/tutorial_illo_canceledit.dds'
+    itemsIcon:SetTexture(texture)
+    itemsIcon:SetDimensions(iconSize * 0.9, iconSize * 0.9)
+
+    itemsIcon:SetHidden(not setNoticeIcon)
+	itemsIcon:SetColor(COLOR_NOTICE:UnpackRGBA())
+	return tooltipText
+end
+
 local COMPLETEDWRITS = 0
 function IJA_WritPanel:UpdateWritsPanel(panelData, completedWrits)
 	if completedWrits == #panelData then
@@ -262,16 +310,23 @@ function IJA_WritPanel:UpdateWritsPanel(panelData, completedWrits)
 	end
 	
 	setHighlightColors(self.control.header)
+	
+	local scale = self.savedVars.panelScale
+    local iconSize = scaleTemplates[scale].header.height
+	local tooltipText = self:UpdateCraftItemsIcon(self.control.itemsIcon, iconSize)
+	
 	self.control.header:SetHandler("OnMouseEnter", function(self)
 		self:SetColor(self.color.enter:UnpackRGBA())
+		ZO_Tooltips_ShowTextTooltip(self, RIGHT, unpack(tooltipText))
 	end)
 	self.control.header:SetHandler("OnMouseExit", function(self)
 		self:SetColor(self.color.normal:UnpackRGBA())
+		ZO_Tooltips_HideTextTooltip()
 	end)
 	self.control.header:SetHandler("OnMouseDown", function(self)
 		self:SetColor(self.color.down:UnpackRGBA())
 	end)
-	
+
 	COMPLETEDWRITS = completedWrits
 end
 

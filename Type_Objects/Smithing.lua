@@ -1369,15 +1369,12 @@ function Smithing_Writ_Object:GetMissingMessage()
 
 	local patternIndex, materialIndex, materialQuantity, itemStyleId, traitIndex, useUniversalStyleItem, numIterations = self:GetAllCraftingParameters()
 
-    local materialLink = GetSmithingPatternMaterialItemLink(patternIndex, materialIndex)
-    self:UpdateCraftItems(GetItemLinkItemId(materialLink), materialQuantity)
+    local materialItemId = self:GetMaterialItemId(materialIndex)
+    IJA_WRITHELPER:AddCraftItemUsed(materialItemId, self.conditionId, materialQuantity)
     local styleLink = GetItemStyleMaterialLink(itemStyleId)
-    self:UpdateCraftItems(GetItemLinkItemId(styleLink), numIterations)
+    IJA_WRITHELPER:AddCraftItemUsed(GetItemLinkItemId(styleLink), self.conditionId, numIterations)
     local traitLink = GetSmithingTraitItemLink(traitIndex)
-    self:UpdateCraftItems(GetItemLinkItemId(traitLink), numIterations)
-
-    local missingCraftItemStrings = self:GetMissingCraftItemStrings()
-    IJA_insert(missingMessage, missingCraftItemStrings)
+    IJA_WRITHELPER:AddCraftItemUsed(GetItemLinkItemId(traitLink), self.conditionId, numIterations)
 
 	if not CheckInventorySpaceSilently(self.conditionInfo.maximum) then
 		table.insert(missingMessage, GetString("SI_TRADESKILLRESULT", 6))

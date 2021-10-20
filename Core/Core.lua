@@ -340,6 +340,7 @@ function IJA_WritHelper:UpdateWrits()
 		IJA_ACTIVEWRITS[craftingType] = true
 	end
 	self:RefreshQuestList()
+	CALLBACK_MANAGER:FireCallbacks("IJA_WritHelper_Update_Writs_Panel")
 end
 
 function IJA_WritHelper:RefreshSingleWrit(questIndex)
@@ -582,11 +583,10 @@ function IJA_WritHelper:UpdateSingleSlot(bagId, slotIndex)
 end
 
 function IJA_WritHelper:GetItemData(itemId, filterFunction, bag)
-    local function comparator(itemId, itemData)
-		return itemId == GetItemId(itemData.bagId, itemData.slotIndex)
-	end
-	if not filterFunction then
-		filterFunction = comparator
+	if filterFunction == nil then
+		filterFunction = function(itemId, itemData)
+			return itemId == GetItemId(itemData.bagId, itemData.slotIndex)
+		end
 	end
 
     local bagCache = self:GetOrCreateBagCache(bag)
@@ -731,44 +731,60 @@ end
 -------------------------------------
 -- Items used for crafting
 -------------------------------------
-IJA_WritHelper_CraftItems = ZO_Object:Subclass()
-
-function IJA_WritHelper_CraftItems:New(condition, required)
-    self.usedIn = {
-        [condition.conditionId] = required
-    }
-    self.required = required
-end
-
-function IJA_WritHelper_CraftItems:Add(condition, required)
-    if not self.usedIn[condition.conditionId] then
-        self.usedIn[condition.conditionId] = required
-        self.required = self.required + required
+local function updateCraftItem(craftingItem, conditionId, required)
+    if craftingItem and not craftingItem.usedIn[conditionId] then
+        craftingItem.usedIn[conditionId] = required
+        craftingItem.required = craftingItem.required + required
     end
 end
 
-function IJA_WritHelper_CraftItems:Subtract(condition)
-    self.required = self.required - self.usedIn[condition.conditionId]
-    self.usedIn[condition.conditionId] = nil
-    if NonContiguousCount(self.usedIn) == 0 then
-        IJA_WRITHELPER:Destroy(self) -- destroy self
+function IJA_WritHelper:GetOrCreateCraftItem(itemId)
+    if not self.craftingItems[itemId] then
+        local craftingItem = self:GetItemData(itemId, nil, IJA_BAG_ALL)
+		if craftingItem then
+			craftingItem.usedIn = {}
+			craftingItem.required = 0
+			self.craftingItems[itemId] = craftingItem
+		else
+			craftingItem = {}
+			craftingItem.name = GetItemLinkName(self:GetItemLink(itemId))
+			craftingItem.usedIn = {}
+			craftingItem.required = 0
+			craftingItem.stackCount = 0
+			self.craftingItems[itemId] = craftingItem
+		end
+    end
+    
+    return self.craftingItems[itemId]
+end
+
+function IJA_WritHelper:AddCraftItemUsed(itemId, conditionId, required)
+	if itemId == nil or type(itemId) ~= 'number' or itemId == 0 then return end
+    local craftingItem = self:GetOrCreateCraftItem(itemId)
+	if craftingItem then
+		updateCraftItem(craftingItem, conditionId, required)
+	end
+end
+
+function IJA_WritHelper:SubtractCraftItemUsed(itemId, conditionId)
+    local craftingItem = self:GetOrCreateCraftItem(itemId)
+    craftingItem.required = craftingItem.required - craftingItem.usedIn[conditionId]
+    craftingItem.usedIn[conditionId] = nil
+
+    if NonContiguousCount(craftingItem.usedIn) == 0 then
+         -- destroy unused craftingItem
+         self:SafelyDestroy(craftingItem)
     end
 end
 
-function IJA_WritHelper_CraftItems:ResetCraftItemsForWrit(object)
-	if not object.sortedConditions then return end
-    for k, condition in pairs(object.sortedConditions) do
-        for itemId, itemInfo in pairs(IJA_WRITHELPER.craftingItems) do
-            if itemInfo.conditionId == condition.conditionId  then
-                itemInfo:Subtract(condition)
-            end
-        end
+function IJA_WritHelper:UpdateAllCraftItems()
+    for k, oldData in pairs(self.craftingItems) do
+		if  not self.craftingItems[itemId].slotIndex then self.craftingItems[itemId] = nil end
+        local craftingItem = self:GetOrCreateCraftItem(oldData.itemId)
+        craftingItem.required = oldData.required
+        craftingItem.usedIn = oldData.usedIn
     end
-end
-
-function IJA_WritHelper_CraftItems:Reset()
-    self.usedIn = nil
-    self.required = nil
+    -- fire callback ?
 end
 
 --	/script SHARED_INVENTORY:FireCallbacks("SingleSlotInventoryUpdate")

@@ -81,30 +81,27 @@ function Alchemy_Writ_Object:GetMissingMessage()
 		table.insert(missingMessage, GetString("SI_TRADESKILLRESULT", 16))
 	end
 	
-    local skillType, skillIndex = GetCraftingSkillLineIndices(CRAFTING_TYPE_ALCHEMY)
-    local abilityIndex = 1
-    local rankIndex = select(8, GetSkillAbilityInfo(skillType, skillIndex, abilityIndex))
+	local skillType, skillIndex = GetCraftingSkillLineIndices(CRAFTING_TYPE_ALCHEMY)
+	local abilityIndex = 1
+	local rankIndex = select(8, GetSkillAbilityInfo(skillType, skillIndex, abilityIndex))
 	if rankIndex < GetItemLinkRequiredCraftingSkillRank(self.itemLink) then
 		table.insert(missingMessage, GetString("SI_TRADESKILLRESULT", 16))
 	end
 	
-    local solventBagId, solventSlot, reacgent1BagId, reacgent1Slot, reacgent2BagId, reacgent2Slot, reacgent3BagId, reacgent3Slot = self:GetAllCraftingBagAndSlots()
-    local numIterations = self:GetRequiredIterations()
+	local solventBagId, solventSlot, reacgent1BagId, reacgent1Slot, reacgent2BagId, reacgent2Slot, reacgent3BagId, reacgent3Slot = self:GetAllCraftingBagAndSlots()
+	local numIterations = self:GetRequiredIterations()
 	if solventSlot then
-		self:UpdateCraftItems(GetItemId(solventBagId, solventSlot), numIterations)
+		IJA_WRITHELPER:AddCraftItemUsed(GetItemId(solventBagId, solventSlot), self.conditionId, numIterations)
 	end
 	if reacgent1Slot then
-		self:UpdateCraftItems(GetItemId(reacgent1BagId, reacgent1Slot), numIterations)
+		IJA_WRITHELPER:AddCraftItemUsed(GetItemId(reacgent1BagId, reacgent1Slot), self.conditionId, numIterations)
 	end
 	if reacgent2Slot then
-		self:UpdateCraftItems(GetItemId(reacgent2BagId, reacgent2Slot), numIterations)
+		IJA_WRITHELPER:AddCraftItemUsed(GetItemId(reacgent2BagId, reacgent2Slot), self.conditionId, numIterations)
 	end
 	if reacgent3Slot then
- 	   self:UpdateCraftItems(GetItemId(reacgent3BagId, reacgent3Slot), numIterations)
+		IJA_WRITHELPER:AddCraftItemUsed(GetItemId(reacgent3BagId, reacgent3Slot), self.conditionId, numIterations)
 	end
-
-    local missingCraftItemStrings = self:GetMissingCraftItemStrings()
-    IJA_insert(missingMessage, missingCraftItemStrings)
 
 	local maxIterations, limitReason = self:GetMaxIterations()
 	if numIterations > maxIterations then

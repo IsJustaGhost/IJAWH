@@ -282,9 +282,7 @@ end
 
 function RecipeData_Object:SubtractItemsUsed()
     for itemId, itemInfo in pairs(IJA_WRITHELPER.craftingItems) do
-        if itemInfo.usedIn[self.conditionId] then
-			itemInfo:Subtract(self)
-        end
+        IJA_WRITHELPER:SubtractCraftItemUsed(itemId, self.conditionId)
     end
 end
 
