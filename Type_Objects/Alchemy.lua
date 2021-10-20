@@ -1,7 +1,6 @@
 -------------------------------------
 -- Alchemy
 -------------------------------------
-local isGamepadMode = IJA_WRITHELPER.isGamepadMode
 local Alchemy_Writ_Object = IJA_WritHelper_Shared_Writ_Object:Subclass()
 
 function Alchemy_Writ_Object:GetRecipeData(conditionInfo)
@@ -137,7 +136,7 @@ end
 
 function Alchemy_Writ_Object:SelectMode()
 	if SCENE_MANAGER:GetPreviousSceneName() == 'hud' then
-		if isGamepadMode then
+		if IJA_WRITHELPER.isGamepadMode then
 			if IsJustaEasyAlchemy then
 				SCENE_MANAGER:Push("ija_gamepad_alchemy_creation")
 			else
@@ -197,7 +196,7 @@ function Alchemy_Writ_Object:GetMaxIterations()
 end
 
 function Alchemy_Writ_Object:GetAllCraftingBagAndSlots(checkCraftingSlots)
-	local zo_Object = isGamepadMode and GAMEPAD_ALCHEMY or ALCHEMY
+	local zo_Object = IJA_WRITHELPER.isGamepadMode and GAMEPAD_ALCHEMY or ALCHEMY
 	
 	local solventBagId, solventSlotIndex, reacgent1BagId, reacgent1Slot, reacgent2BagId, reacgent2Slot, reacgent3BagId, reacgent3Slot
 	if checkCraftingSlots then

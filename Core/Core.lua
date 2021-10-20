@@ -1,7 +1,6 @@
 local IJA_WritHelper = IJA_WRITHELPER
 IJA_ACTIVEWRITS = {}
 
-local isGamepadMode = IJA_WritHelper.isGamepadMode
 -------------------------------------
 -- Comparators
 -------------------------------------
@@ -411,7 +410,7 @@ local function setWritAdviserToSelectedWrit()
 	end
 	
 	if questIndex ~= 0 and questIndex ~= IJA_WRITHELPER.selectedQuestIndex then
-		if isGamepadMode then
+		if IJA_WRITHELPER.isGamepadMode then
 			ZO_WRIT_ADVISOR_GAMEPAD:CycleActiveQuest()
 		else
 		end
@@ -626,14 +625,13 @@ function IJA_WritHelper:DefaultFilterFunction(itemData)
 	-- for optionalDependsOn filtering addons.
 	local locked = itemData.locked
 	if not locked then
-		if self.isFCOIS and not isGamepadMode then
+		if self.isFCOIS and not IJA_WRITHELPER.isGamepadMode then
 			locked = FCOIS.IsLocked(itemData.bagId, itemData.slotIndex)
 		end
 	end
 	return not locked
 end
---	self.isGamepadMode = IsInGamepadPreferredMode()
---	local isGamepadMode = IJA_WritHelper.isGamepadMode
+
 -------------------------------------
 -- Item Link Functions
 -------------------------------------

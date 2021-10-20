@@ -11,7 +11,6 @@ local function getColor(state)
 --		COLOR_ERROR
 end
 
-local isGamepadMode = IJA_WRITHELPER.isGamepadMode
 local scaleTemplates = {
 	[1] = {
 		['header'] = {
@@ -419,7 +418,7 @@ local function selectButton(minimize)
 end
 
 local function setToGroup()
-	local groupDistance = isGamepadMode and 60 or -10
+	local groupDistance = IJA_WRITHELPER.isGamepadMode and 60 or -10
 	return (ZO_SmallGroupAnchorFrame:GetRight() + groupDistance)
 end
 local function setToScreen(control)

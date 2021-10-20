@@ -3,7 +3,6 @@
 -------------------------------------
 local callbackSet = false
 local oldScene = ''
-local isGamepadMode = IJA_WRITHELPER.isGamepadMode
 
 local function isIngredient(itemData) 		-- comparator
 	return itemData.itemType == ITEMTYPE_INGREDIENT
@@ -186,14 +185,14 @@ function Provisioning_Writ_Object:SetStation(isAutoCraft)
 	-- tab is the the list needed (food/drink)
 	local tab = (recipeListIndex <= 7 or recipeListIndex == 16) and 1 or 2
 	
-	local sceneName = isGamepadMode and "gamepad_provisioner_root" or "provisioner"
+	local sceneName = IJA_WRITHELPER.isGamepadMode and "gamepad_provisioner_root" or "provisioner"
 	local provisioningScene = SCENE_MANAGER:GetScene(sceneName)
 
 	-- the callback is used to set the recipe list and recipe after station UI has finished loading
 	local function setStation(oldState, newState)
 		if newState == SCENE_SHOWING then
 		elseif newState == SCENE_SHOWN then
-			setRecipeListToItem(recipeData, tab, isGamepadMode, isAutoCraft)
+			setRecipeListToItem(recipeData, tab, IJA_WRITHELPER.isGamepadMode, isAutoCraft)
 		elseif newState == SCENE_HIDDEN then
 			provisioningScene:UnregisterCallback("StateChange", setStation)
 			callbackSet = false
@@ -207,7 +206,7 @@ function Provisioning_Writ_Object:SetStation(isAutoCraft)
 	end
 	
 	if callbackSet then
-		setRecipeListToItem(recipeData, tab, isGamepadMode, isAutoCraft)
+		setRecipeListToItem(recipeData, tab, IJA_WRITHELPER.isGamepadMode, isAutoCraft)
 	else
 		oldScene = sceneName
 		provisioningScene:RegisterCallback("StateChange", setStation)

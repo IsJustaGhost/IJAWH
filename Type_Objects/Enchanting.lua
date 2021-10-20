@@ -1,8 +1,6 @@
 -------------------------------------
 -- Enchanting
 -------------------------------------
-local isGamepadMode = IJA_WRITHELPER.isGamepadMode
-
 local glyphTable = { -- essenceRune and key to use for selecting the potencyRune table
 	[5364]	= { -- Glyph of Frost Resist
 		["key"] = 1,
@@ -188,7 +186,7 @@ end
 
 local function setRuneSounds(rune1BagId, rune1SlotIndex, rune2BagId, rune2SlotIndex, rune3BagId, rune3SlotIndex)
 	-- set the spoken audio of rune names that will be used during crafting
-	local zo_Object = isGamepadMode and GAMEPAD_ENCHANTING or ENCHANTING
+	local zo_Object = IJA_WRITHELPER.isGamepadMode and GAMEPAD_ENCHANTING or ENCHANTING
 	
 	zo_Object.potencySound, zo_Object.potencyLength = GetRunestoneSoundInfo(rune1BagId, rune1SlotIndex)
 	zo_Object.essenceSound, zo_Object.essenceLength = GetRunestoneSoundInfo(rune2BagId, rune2SlotIndex)
@@ -197,7 +195,7 @@ end
 
 local function SetEnchantingSlots(runes)	
 	-- sets selected runes to crafting slots
-	local zo_Object = isGamepadMode and GAMEPAD_ENCHANTING or ENCHANTING
+	local zo_Object = IJA_WRITHELPER.isGamepadMode and GAMEPAD_ENCHANTING or ENCHANTING
 	for i=1, #runes do
 		if runes[i].meetsUsageRequirement then
 			local bagId, slotIndex = ZO_Inventory_GetBagAndIndex(runes[i])
@@ -206,7 +204,7 @@ local function SetEnchantingSlots(runes)
 		end
 	end
 	
-	if isGamepadMode then
+	if IJA_WRITHELPER.isGamepadMode then
 		GAMEPAD_ENCHANTING:UpdateSelection()
 	else
 		ENCHANTING.inventory:HandleDirtyEvent()
@@ -344,7 +342,7 @@ end
 
 function Enchanting_Writ_Object:SelectMode()
 	if SCENE_MANAGER:GetPreviousSceneName() == 'hud' then
-		if isGamepadMode then
+		if IJA_WRITHELPER.isGamepadMode then
 			SCENE_MANAGER:Push("gamepad_enchanting_creation")
 		else
 			ZO_MenuBar_SelectDescriptor(ENCHANTING.modeBar, ENCHANTING_MODE_CREATION)
